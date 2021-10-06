@@ -1,0 +1,58 @@
+<h2>Datos generales</h2>
+<form [formGroup]="generalInfoForm">
+    <div class="flex flex-row flex-wrap">
+        <div class="m-2">
+            <h3>Región</h3>
+            <p-dropdown [options]="location" formControlName="region" (onChange)="querySelectedRegionDirectory()" placeholder="Seleccione región" optionValue="region" optionLabel="region" [showClear]="true">
+            </p-dropdown>
+        </div>
+        <div class="m-2">
+            <h3>Tipo de corral</h3>
+            <p-dropdown [options]="tipoDeCorral" formControlName="tipoDeCorral" (onChange)="filterByCorralType()" placeholder="Seleccione corral" optionValue="tipo" optionLabel="tipo" [showClear]="true">
+            </p-dropdown>
+        </div>
+        <div class="m-2">
+            <h3>Nombre</h3>
+            <p-dropdown [options]="directoryDataFiltered" formControlName="nombre" placeholder="Seleccione el nombre" optionValue="NOMBRE" optionLabel="NOMBRE" [showClear]="true">
+            </p-dropdown>
+        </div>
+        <!--Estos son los campos disables autocompletados-->
+        <div class="m-2">
+            <h3>Propietario</h3>
+            <input type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Dirección</h3>
+            <input type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Municipio</h3>
+            <input type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>PSG</h3>
+            <input type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Latitud</h3>
+            <input type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Longitud</h3>
+            <input type="text" pInputText>
+        </div>
+    </div>
+</form>
+<br>
+<h2>Datos del formulario</h2>
+<p-tabView>
+    <p-tabPanel header="Header 1">
+       Content 1
+    </p-tabPanel>
+    <p-tabPanel header="Header 2">
+        Content 2
+    </p-tabPanel>
+    <p-tabPanel header="Header 3">
+        Content 3
+    </p-tabPanel>
+</p-tabView>
