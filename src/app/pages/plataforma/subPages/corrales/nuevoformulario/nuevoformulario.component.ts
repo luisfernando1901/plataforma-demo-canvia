@@ -31,13 +31,21 @@ export class NuevoformularioComponent implements OnInit {
       tipo: 'CEA',
     }
   ];
-  directoryData:any;
+  directoryData: any;
   directoryDataFiltered: object[] = [];
   //Formularios
   generalInfoForm = this.fb.group({
     region: [],
     tipoDeCorral: [],
-    nombre: []
+    infoCliente: [],
+    TIPO_DE_CORRAL: [],
+    NOMBRE: [],
+    PROPIETARIO: [{ value: '', disabled: true }],
+    DIRECCION: [{ value: '', disabled: true }],
+    MUNICIPIO: [{ value: '', disabled: true }],
+    PSG: [{ value: '', disabled: true }],
+    LATITUD: [{ value: '', disabled: true }],
+    LONGITUD: [{ value: '', disabled: true }],
   });
 
   constructor(private fb: FormBuilder, private _mongodb: MongodbService) { }
@@ -54,9 +62,10 @@ export class NuevoformularioComponent implements OnInit {
       console.log(this.directoryData);
       this.filterByCorralType();
     }
-    else{
+    else {
       this.directoryDataFiltered = [];
-      this.generalInfoForm.patchValue({tipoDeCorral:null});
+      this.generalInfoForm.patchValue({ tipoDeCorral: null });
+      this.generalInfoForm.patchValue({ infoCliente: null });
     }
   }
   //Función que filtra la búsqueda por tipo de corral
@@ -64,7 +73,6 @@ export class NuevoformularioComponent implements OnInit {
     let filteredResults: object[] = [];
     if (this.generalInfoForm.value['tipoDeCorral'] != null && this.generalInfoForm.value['region'] != null) {
       let type = this.generalInfoForm.value['tipoDeCorral'];
-      console.log(type);
       this.directoryData.results.forEach((single: directoryDataType) => {
         let corralType = single.TIPO_DE_CORRAL.split(' ')[0];
         if (type == corralType) {
@@ -74,8 +82,23 @@ export class NuevoformularioComponent implements OnInit {
       this.directoryDataFiltered = filteredResults;
       console.log(filteredResults);
     }
-    else{
+    else {
       this.directoryDataFiltered = [];
+      this.generalInfoForm.patchValue({ infoCliente: null });
+    }
+  }
+  //Función para obtener los datos del cliente seleccionado
+  getClientInfo() {
+    var clientInfo = this.generalInfoForm.value['infoCliente'];
+    if (clientInfo != null) {
+      this.generalInfoForm.patchValue({
+        PROPIETARIO: clientInfo['PROPIETARIO'],
+        DIRECCION: clientInfo['DIRECCION'],
+        MUNICIPIO: clientInfo['MUNICIPIO'],
+        PSG: clientInfo['PSG'],
+        LATITUD: clientInfo['LATITUD'],
+        LONGITUD: clientInfo['LONGITUD'],
+      });
     }
   }
 }

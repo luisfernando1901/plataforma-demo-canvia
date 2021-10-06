@@ -13,33 +13,33 @@
         </div>
         <div class="m-2">
             <h3>Nombre</h3>
-            <p-dropdown [options]="directoryDataFiltered" formControlName="nombre" placeholder="Seleccione el nombre" optionValue="NOMBRE" optionLabel="NOMBRE" [showClear]="true">
+            <p-dropdown [options]="directoryDataFiltered" formControlName="infoCliente" (onChange)="getClientInfo()" placeholder="Seleccione el nombre" optionLabel="NOMBRE" [showClear]="true">
             </p-dropdown>
         </div>
         <!--Estos son los campos disables autocompletados-->
         <div class="m-2">
             <h3>Propietario</h3>
-            <input type="text" pInputText>
+            <input formControlName="PROPIETARIO" type="text" pInputText>
         </div>
         <div class="m-2">
             <h3>Dirección</h3>
-            <input type="text" pInputText>
+            <input formControlName="DIRECCION" type="text" pInputText>
         </div>
         <div class="m-2">
             <h3>Municipio</h3>
-            <input type="text" pInputText>
+            <input formControlName="MUNICIPIO" type="text" pInputText>
         </div>
         <div class="m-2">
             <h3>PSG</h3>
-            <input type="text" pInputText>
+            <input formControlName="PSG" type="text" pInputText>
         </div>
         <div class="m-2">
             <h3>Latitud</h3>
-            <input type="text" pInputText>
+            <input formControlName="LATITUD" type="text" pInputText>
         </div>
         <div class="m-2">
             <h3>Longitud</h3>
-            <input type="text" pInputText>
+            <input formControlName="LONGITUD" type="text" pInputText>
         </div>
     </div>
 </form>
