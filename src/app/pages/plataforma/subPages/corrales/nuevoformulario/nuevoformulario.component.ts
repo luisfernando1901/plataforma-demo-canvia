@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
+import { FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-nuevoformulario',
@@ -33,6 +34,7 @@ export class NuevoformularioComponent implements OnInit {
   ];
   directoryData: any;
   directoryDataFiltered: object[] = [];
+  cantidadDeVariables = 0;
   //Formularios
   generalInfoForm = this.fb.group({
     region: [],
@@ -47,10 +49,81 @@ export class NuevoformularioComponent implements OnInit {
     LATITUD: [{ value: '', disabled: true }],
     LONGITUD: [{ value: '', disabled: true }],
   });
+  //Dinamic forms
+  answersForm = this.fb.group({
+    answers: this.fb.array([])
+  });
+
+  get answers() {
+    return this.answersForm.controls["answers"] as FormArray;
+  }
+
+  addAnswersData(cantidad: number) {
+    for (let index = 0; index < cantidad; index++) {
+      const answerData = this.fb.group({
+        respuesta: [''],
+        observaciones: [''],
+        observacionesDelMedico: [''],
+        fechaDeCumplimiento: [''],
+      });
+      this.answers.push(answerData);
+    }
+  }
+  //Variables que son de prueba nomas
+  prueba = {
+    "seccion1": [
+      {
+        "titulo": "PRIMERA SECCION - INSTALACIONES",
+        "cantidadDePreguntas": 5,
+        "questionario": [
+          {
+            "pregunta": "1.- Un corral de Acopio de Consumo Nacional deberá consistir de todo el CACN, no están permitidas otras PSG o UPP dentro del mismo predio.",
+            "respuestas": {
+              "1": ["Opera con su PSG"],
+              "0": ["Hay otra PSG en el CACN", "Hay una UPP en el CACN"]
+            }
+          },
+          {
+            "pregunta": "2.- Un corral de Acopio de Consumo Nacional deberá consistir de todo el CACN, no están permitidas otras PSG o UPP dentro del mismo predio.",
+            "respuestas": {
+              "1": ["Opera con su PSG"],
+              "0": ["Hay otra PSG en el CACN", "Hay una UPP en el CACN"]
+            }
+          }
+        ]
+      }
+    ],
+    "seccion2": [
+      {
+        "titulo": "SEGUNDA SECCION - INSTALACIONES",
+        "cantidadDePreguntas": 5,
+        "questionario": [
+          {
+            "pregunta": "1.- Un corral de Acopio de Consumo Nacional deberá consistir de todo el CACN, no están permitidas otras PSG o UPP dentro del mismo predio.",
+            "respuestas": {
+              "1": ["Opera con su PSG"],
+              "0": ["Hay otra PSG en el CACN", "Hay una UPP en el CACN"]
+            }
+          },
+          {
+            "pregunta": "2.- Un corral de Acopio de Consumo Nacional deberá consistir de todo el CACN, no están permitidas otras PSG o UPP dentro del mismo predio.",
+            "respuestas": {
+              "1": ["Opera con su PSG"],
+              "0": ["Hay otra PSG en el CACN", "Hay una UPP en el CACN"]
+            }
+          }
+        ]
+      }
+    ]
+
+  }
 
   constructor(private fb: FormBuilder, private _mongodb: MongodbService) { }
 
   ngOnInit(): void {
+    this.cantidadDeVariables = this.prueba.seccion1[0].cantidadDePreguntas;
+    this.addAnswersData(this.cantidadDeVariables);
+    console.log(this.answersForm.value);
   }
 
   //Función que se activa cada vez que se cambia el dropdown de Region

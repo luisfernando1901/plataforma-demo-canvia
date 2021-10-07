@@ -45,14 +45,66 @@
 </form>
 <br>
 <h2>Datos del formulario</h2>
-<p-tabView>
-    <p-tabPanel header="Header 1">
-       Content 1
-    </p-tabPanel>
-    <p-tabPanel header="Header 2">
-        Content 2
-    </p-tabPanel>
-    <p-tabPanel header="Header 3">
-        Content 3
-    </p-tabPanel>
-</p-tabView>
+<h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
+<div *ngFor="let prueba of prueba.seccion1">
+    <h3>{{prueba['titulo']}}</h3>
+    <div *ngFor="let questionario of prueba.questionario">
+        <h4>{{questionario['pregunta']}}</h4>
+        <div class="flex flex-row flex-wrap">
+            <div class="m-2">
+                <h5>Respuesta</h5>
+                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observaciones</h5>
+                <p-dropdown [options]="questionario.respuestas['1']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observaciones</h5>
+                <p-dropdown [options]="questionario.respuestas['0']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observación del médico</h5>
+                <input type="text" pInputText>
+            </div>
+            <div class="m-2">
+                <h5>Fecha de cumplimiento</h5>
+                <input type="date" pInputText>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngFor="let prueba of prueba.seccion2">
+    <h3>{{prueba['titulo']}}</h3>
+    <div *ngFor="let questionario of prueba.questionario">
+        <h4>{{questionario['pregunta']}}</h4>
+        <div class="flex flex-row flex-wrap">
+            <div class="m-2">
+                <h5>Respuesta</h5>
+                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observaciones</h5>
+                <p-dropdown [options]="questionario.respuestas['1']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observaciones</h5>
+                <p-dropdown [options]="questionario.respuestas['0']" placeholder="Seleccione respuesta" [showClear]="true">
+                </p-dropdown>
+            </div>
+            <div class="m-2">
+                <h5>Observación del médico</h5>
+                <input type="text" pInputText>
+            </div>
+            <div class="m-2">
+                <h5>Fecha de cumplimiento</h5>
+                <input type="date" pInputText>
+            </div>
+        </div>
+    </div>
+</div>
