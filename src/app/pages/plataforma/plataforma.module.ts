@@ -13,6 +13,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
 import {DividerModule} from 'primeng/divider';
+import {ButtonModule} from 'primeng/button';
 //Components
 import { IconsProviderModule } from '../..//icons-provider.module';
 import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nuevoformulario.component';
@@ -37,7 +38,8 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
     InputTextModule,
     TabViewModule,
     ReactiveFormsModule,
-    DividerModule
+    DividerModule,
+    ButtonModule
   ],
   providers:[
     MongodbService

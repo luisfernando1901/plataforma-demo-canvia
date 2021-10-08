@@ -49,576 +49,150 @@
 <p-divider></p-divider>
 <h2>Datos del formulario</h2>
 <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
-<form>
+<!-- FORMULARIO CACN-->
+<form [formGroup]="answersFormCACN">
     <!-- PRIMERA SECCIÓN-->
-    <div>
-        <h3>{{prueba.seccion1['titulo']}}</h3>
-        <h4>{{prueba.seccion1.questionario[0].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[0].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[0].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[1].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[1].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[1].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[2].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[2].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[2].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[3].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[3].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[3].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[4].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[4].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[4].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[5].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[5].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[5].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[6].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[6].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[6].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[7].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[7].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[7].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[8].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[8].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[8].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion1.questionario[9].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[9].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion1.questionario[9].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
+    <div formArrayName="answersSection1">
+        <h3>{{formularioCACN.seccion1['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of answersSection1.controls; let i = index">
+            <h4>{{formularioCACN.seccion1.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion1.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion1.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
             </div>
         </div>
     </div>
     <!-- SEGUNDA SECCIÓN-->
-    <div>
-        <h3>{{prueba.seccion2['titulo']}}</h3>
-        <h4>{{prueba.seccion2.questionario[0].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[0].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[0].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion2.questionario[1].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[1].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[1].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion2.questionario[2].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[2].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[2].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion2.questionario[3].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[3].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion2.questionario[3].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
+    <div formArrayName="answersSection2">
+        <h3>{{formularioCACN.seccion2['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of answersSection2.controls; let i = index">
+            <h4>{{formularioCACN.seccion2.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion2.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion2.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
             </div>
         </div>
     </div>
     <!-- TERCERA SECCIÓN-->
-    <div>
-        <h3>{{prueba.seccion3['titulo']}}</h3>
-        <h4>{{prueba.seccion3.questionario[0].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[0].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[0].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion3.questionario[1].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[1].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[1].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion3.questionario[2].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[2].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion3.questionario[2].respuestas['0']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
+    <div formArrayName="answersSection3">
+        <h3>{{formularioCACN.seccion3['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of answersSection3.controls; let i = index">
+            <h4>{{formularioCACN.seccion3.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion3.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion3.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
             </div>
         </div>
     </div>
     <!-- CUARTA SECCIÓN-->
-    <div>
-        <h3>{{prueba.seccion4['titulo']}}</h3>
-        <h4>{{prueba.seccion4.questionario[0].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion4.questionario[0].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion4.questionario[0].respuestas['0']!"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion4.questionario[1].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion4.questionario[1].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion4.questionario[1].respuestas['0']!"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
-            </div>
-        </div>
-        <h4>{{prueba.seccion4.questionario[2].pregunta}}</h4>
-        <div class="flex flex-row flex-wrap">
-            <div class="m-2">
-                <h5>Respuesta</h5>
-                <p-dropdown [options]="['0','1']" placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observaciones</h5>
-                <p-dropdown [options]="prueba.seccion4.questionario[2].respuestas['1']"
-                    placeholder="Seleccione respuesta" [showClear]="true">
-                </p-dropdown>
-            </div>
-            <div class="m-2">
-                <h5>Observación del médico</h5>
-                <input type="text" pInputText>
-            </div>
-            <div class="m-2">
-                <h5>Fecha de cumplimiento</h5>
-                <input type="date" pInputText>
+    <div formArrayName="answersSection4">
+        <h3>{{formularioCACN.seccion4['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of answersSection4.controls; let i = index">
+            <h4>{{formularioCACN.seccion4.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion4.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCACN.seccion4.questionario[i].respuestas['0']!"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
             </div>
         </div>
     </div>
-    
+    <br>
+    <div class="flex justify-content-center">
+        <p-button (click)="sendCACN()" label="Terminar formulario"></p-button>
+    </div>
 </form>
