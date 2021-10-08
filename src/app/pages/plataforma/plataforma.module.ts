@@ -12,6 +12,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {TabViewModule} from 'primeng/tabview';
+import {DividerModule} from 'primeng/divider';
 //Components
 import { IconsProviderModule } from '../..//icons-provider.module';
 import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nuevoformulario.component';
@@ -35,7 +36,8 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
     DropdownModule,
     InputTextModule,
     TabViewModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DividerModule
   ],
   providers:[
     MongodbService
