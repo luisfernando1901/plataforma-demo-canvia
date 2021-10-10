@@ -19,7 +19,6 @@
                 placeholder="Seleccione el nombre" optionLabel="NOMBRE" [showClear]="true">
             </p-dropdown>
         </div>
-        <!--Estos son los campos disables autocompletados-->
         <div class="m-2">
             <h3>Propietario</h3>
             <input formControlName="PROPIETARIO" type="text" pInputText>
@@ -48,11 +47,34 @@
 </form>
 <p-divider></p-divider>
 <h2>Datos del formulario</h2>
-<h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
 <br>
 <!-- FORMULARIO CACN-->
-<form [formGroup]="answersFormCACN" *ngIf="false">
+<form [formGroup]="answersFormCACN" *ngIf="isCACNform">
+    <!-- INFORMACIÓN GENERAL SOBRE CACN -->
+    <h3>INFORMACIÓN GENERAL</h3>
+    <div class="flex flex-row flex-wrap">
+        <div class="m-2">
+            <h4>Inventario de ganado</h4>
+            <input class="fillAvailable" formControlName="inventario_de_ganado" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>CACN</h4>
+            <input class="fillAvailable" formControlName="CACN" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>MVZ CACN</h4>
+            <input class="fillAvailable" formControlName="MVZ_CACN" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>MVZ RA SUPERVISOR</h4>
+            <input class="fillAvailable" formControlName="MVZ_RA_SUPERVISOR" type="text" pInputText>
+        </div>
+    </div>
+    <h2 class="flex justify-content-center mt-3" style="text-align: center;">CRITERIOS DE SUPERVISION A CUMPLIR
+        ACORDADOS POR LA SECRETARIA DE AGRICULTURA Y GANADERIA DEL GOBIERNO DE SINALOA PARA CORRALES DE ACOPIO DE
+        CONSUMO NACIONAL (CACN)</h2>
     <!-- PRIMERA SECCIÓN-->
+    <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
     <div formArrayName="CACN_answersSection1">
         <h3>{{formularioCACN.seccion1['titulo']}}</h3>
         <div *ngFor="let singleAnswer of CACN_answersSection1.controls; let i = index">
@@ -70,7 +92,7 @@
                         formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
-                <div class="m-2"*ngIf="answersFormCACN.value.CACN_answersSection1[i].respuesta == '0'">
+                <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection1[i].respuesta == '0'">
                     <h5>Observaciones</h5>
                     <p-dropdown [options]="formularioCACN.seccion1.questionario[i].respuestas['0']"
                         formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
@@ -80,7 +102,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection1[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -116,7 +138,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection2[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -152,7 +174,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection3[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -188,7 +210,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection4[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -196,12 +218,57 @@
         </div>
     </div>
     <br>
-    <div class="flex justify-content-center">
-        <p-button (click)="sendCACN()" label="Terminar formulario"></p-button>
+    <h3>Observaciones y Acuerdos</h3>
+    <textarea rows="5" cols="40" pInputTextarea [autoResize]="true"></textarea>
+    <br>
+    <div class="flex justify-content-center mt-3">
+        <p-button (click)="sendCACN()" label="Terminar formulario CACN"></p-button>
     </div>
 </form>
 <!-- FORMULARIO CE-->
-<form [formGroup]="answersFormCE" *ngIf="true">
+<form [formGroup]="answersFormCE" *ngIf="isCEform">
+    <!-- INFORMACIÓN GENERAL SOBRE CE -->
+    <h3>INFORMACIÓN GENERAL</h3>
+    <div class="flex flex-row flex-wrap">
+        <div class="m-2">
+            <h4>Capacidad Instalada del Corral de Engorda</h4>
+            <input class="fillAvailable" formControlName="capacidad_instalada" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Capacidad Utilizada del Corral de Engorda</h4>
+            <input class="fillAvailable" formControlName="capacidad_utilizada" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Número de corrales Internos</h4>
+            <input class="fillAvailable" formControlName="numero_corrales_internos" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Existencia de corrales alternos o de cuarentena</h4>
+            <input class="fillAvailable" formControlName="existencia_corrales_alternos_o_cuarentena" type="text"
+                pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Numero de Autorización</h4>
+            <input class="fillAvailable" formControlName="numero_de_autorizacion" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Vigencia de Autorización</h4>
+            <input class="fillAvailable" formControlName="vigencia_de_autorizacion" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Médico Veterinario Responsable de la Supervisión</h4>
+            <input class="fillAvailable" formControlName="medico_veterinario_responsable_de_supervision" type="text"
+                pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Periodo de la Supervisión</h4>
+            <input class="fillAvailable" formControlName="periodo_de_supervision" type="text" pInputText>
+        </div>
+
+    </div>
+    <h2 class="flex justify-content-center mt-3" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
+        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA (CE)</h2>
+    <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
     <!-- PRIMERA SECCIÓN-->
     <div formArrayName="CE_answersSection1">
         <h3>{{formularioCE.seccion1['titulo']}}</h3>
@@ -220,7 +287,7 @@
                         formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
-                <div class="m-2"*ngIf="answersFormCE.value.CE_answersSection1[i].respuesta == '0'">
+                <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection1[i].respuesta == '0'">
                     <h5>Observaciones</h5>
                     <p-dropdown [options]="formularioCE.seccion1.questionario[i].respuestas['0']"
                         formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
@@ -230,7 +297,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection1[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -266,7 +333,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection2[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -302,7 +369,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection3[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -338,7 +405,7 @@
                     <h5>Observación del médico</h5>
                     <input type="text" formControlName="observacionesDelMedico" pInputText>
                 </div>
-                <div class="m-2">
+                <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection4[i].respuesta == '0'">
                     <h5>Fecha de cumplimiento</h5>
                     <input type="date" formControlName="fechaDeCumplimiento" pInputText>
                 </div>
@@ -346,8 +413,329 @@
         </div>
     </div>
     <br>
-    <div class="flex justify-content-center">
-        <p-button (click)="sendCACN()" label="Terminar formulario"></p-button>
+    <h3>Observaciones y Acuerdos</h3>
+    <textarea rows="5" cols="40" formControlName="observaciones_y_acuerdos" pInputTextarea
+        [autoResize]="true"></textarea>
+    <br>
+    <div class="flex justify-content-center mt-3">
+        <p-button (click)="sendCE()" label="Terminar formulario CE"></p-button>
     </div>
 </form>
+<!-- FORMULARIO CEA-->
+<form [formGroup]="answersFormCEA" *ngIf="isCEAform">
+    <!-- INFORMACIÓN GENERAL SOBRE CE -->
+    <h3>INFORMACIÓN GENERAL - PARTE 1</h3>
+    <div class="flex flex-row flex-wrap">
+        <div class="m-2">
+            <h4>Capacidad Instalada del Corral de Engorda</h4>
+            <input class="fillAvailable" formControlName="capacidad_instalada" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Capacidad Utilizada del Corral de Engorda</h4>
+            <input class="fillAvailable" formControlName="capacidad_utilizada" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Número de corrales Internos</h4>
+            <input class="fillAvailable" formControlName="numero_corrales_internos" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Existencia de corrales alternos o de cuarentena</h4>
+            <input class="fillAvailable" formControlName="existencia_corrales_alternos_o_cuarentena" type="text"
+                pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Numero de Autorización</h4>
+            <input class="fillAvailable" formControlName="numero_de_autorizacion" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Vigencia de Autorización</h4>
+            <input class="fillAvailable" formControlName="vigencia_de_autorizacion" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Médico Veterinario Responsable del CEA</h4>
+            <input class="fillAvailable" formControlName="medico_veterinario_responsable_del_CEA" type="text"
+                pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Médico Veterinario Responsable de la Supervisión</h4>
+            <input class="fillAvailable" formControlName="medico_veterinario_responsable_de_supervision" type="text"
+                pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Periodo de la Supervisión</h4>
+            <input class="fillAvailable" formControlName="periodo_de_supervision" type="text" pInputText>
+        </div>
 
+        <div class="m-2">
+            <h4>Número de cabezas en el CEA</h4>
+            <input class="fillAvailable" formControlName="numero_de_cabezas_en_el_CEA" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Número de cabezas ingresadas al CEA</h4>
+            <input class="fillAvailable" formControlName="numero_de_cabezas_ingresadas_al_CEA" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Cabezas engordadas</h4>
+            <input class="fillAvailable" formControlName="cabezas_engordadas" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Cabezas egresadas del CEA para sacrificio en rastros</h4>
+            <input class="fillAvailable" formControlName="cabezas_egresadas_del_CEA_para_sacrificio_en_rastros"
+                type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Número de cabezas muertas en el CEA</h4>
+            <input class="fillAvailable" formControlName="numero_cabezas_muertas_en_el_CEA" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h4>Número de cabezas en el CEA (último día del mes de evaluación)</h4>
+            <input class="fillAvailable" formControlName="numero_cabezas_en_el_CEA_ultimo_dia_mes_evaluacion"
+                type="text" pInputText>
+        </div>
+    </div>
+    <!-- Preguntas de la primera tabla roja -->
+    <div class="flex flex-row flex-wrap">
+        <div class="m-2">
+            <h4>Condición general de las instalaciones</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Infraestructura del corral en general.</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Corrales de descarga y manejo</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Corrales de confinamiento</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Planta de alimentos</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Abrevaderos</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="m-2">
+            <h4>Condición de las cercas del corral engorda que delimitan con vecinos. (Cerco Perimetral)</h4>
+        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+        </div>
+    </div>
+    <!-- Preguntas iniciales -->
+    <h3>INFORMACIÓN GENERAL - PARTE 2</h3>
+    <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
+    <div formArrayName="preguntas_iniciales1">
+        <h3>{{formularioCEA.preguntasIniciales1['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of preguntas_iniciales1.controls; let i = index">
+            <h4>{{formularioCEA.preguntasIniciales1.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales1[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.preguntasIniciales1.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales1[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.preguntasIniciales1.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div formArrayName="preguntas_iniciales2">
+        <h3>{{formularioCEA.preguntasIniciales2['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of preguntas_iniciales2.controls; let i = index">
+            <h4>{{formularioCEA.preguntasIniciales2.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales2[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.preguntasIniciales2.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales2[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.preguntasIniciales2.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h2 class="flex justify-content-center mt-3" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
+        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA APROBADOS (CEA)</h2>
+    <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
+    <!-- PRIMERA SECCIÓN-->
+    <div formArrayName="CEA_answersSection1">
+        <h3>{{formularioCEA.seccion1['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of CEA_answersSection1.controls; let i = index">
+            <h4>{{formularioCEA.seccion1.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection1[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion1.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection1[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion1.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection1[i].respuesta == '0'">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- SEGUNDA SECCIÓN-->
+    <div formArrayName="CEA_answersSection2">
+        <h3>{{formularioCEA.seccion2['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of CEA_answersSection2.controls; let i = index">
+            <h4>{{formularioCEA.seccion2.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection2[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion2.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection2[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion2.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection2[i].respuesta == '0'">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- TERCERA SECCIÓN-->
+    <div formArrayName="CEA_answersSection3">
+        <h3>{{formularioCEA.seccion3['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of CEA_answersSection3.controls; let i = index">
+            <h4>{{formularioCEA.seccion3.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection3[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion3.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection3[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion3.questionario[i].respuestas['0']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection3[i].respuesta == '0'">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- CUARTA SECCIÓN-->
+    <div formArrayName="CEA_answersSection4">
+        <h3>{{formularioCEA.seccion4['titulo']}}</h3>
+        <div *ngFor="let singleAnswer of CEA_answersSection4.controls; let i = index">
+            <h4>{{formularioCEA.seccion4.questionario[i].pregunta}}</h4>
+            <div class="flex flex-row flex-wrap" [formGroupName]="i">
+                <div class="m-2">
+                    <h5>Respuesta</h5>
+                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
+                        [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection4[i].respuesta == '1'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion4.questionario[i].respuestas['1']"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection4[i].respuesta == '0'">
+                    <h5>Observaciones</h5>
+                    <p-dropdown [options]="formularioCEA.seccion4.questionario[i].respuestas['0']!"
+                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="m-2">
+                    <h5>Observación del médico</h5>
+                    <input type="text" formControlName="observacionesDelMedico" pInputText>
+                </div>
+                <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection4[i].respuesta == '0'">
+                    <h5>Fecha de cumplimiento</h5>
+                    <input type="date" formControlName="fechaDeCumplimiento" pInputText>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h3>Observaciones y Acuerdos</h3>
+    <textarea rows="5" cols="40" formControlName="observaciones_y_acuerdos" pInputTextarea
+        [autoResize]="true"></textarea>
+    <br>
+    <div class="flex justify-content-center mt-3">
+        <p-button (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
+    </div>
+</form>
+<!-- MENSAJE DE QUE AÚN NO SE HA ELEGIDO FORMULARIO -->
+<div class="flex justify-content-center" *ngIf="isNothing">
+    <h3>- Primero debe seleccionar un tipo de corral -</h3>
+</div>

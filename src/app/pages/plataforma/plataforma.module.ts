@@ -11,6 +11,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 //PRIMENG modules
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TabViewModule} from 'primeng/tabview';
 import {DividerModule} from 'primeng/divider';
 import {ButtonModule} from 'primeng/button';
@@ -39,7 +40,8 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
     TabViewModule,
     ReactiveFormsModule,
     DividerModule,
-    ButtonModule
+    ButtonModule,
+    InputTextareaModule,
   ],
   providers:[
     MongodbService

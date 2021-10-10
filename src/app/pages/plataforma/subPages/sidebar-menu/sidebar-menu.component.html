@@ -3,8 +3,8 @@
     [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Plataforma Web</h1>
+        <img src="assets/images/LOGO-COMITE.jpg" class="border-circle" alt="logo">
+        <h1>COMITE ESTATAL</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -12,40 +12,39 @@
         <i nz-icon nzType="line-chart"></i>
         <span><a [routerLink]="['inicio']">Dashboard</a></span>
       </li>
-
       <li nz-submenu nzTitle="Corrales" nzIcon="profile">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['corrales/nuevoformulario']" >Nuevo formulario</a>
+          <li nz-menu-item>
+            <a [routerLink]="['corrales/nuevoformulario']">Nuevo formulario</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item>
+            <a>Historial de reportes</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Barrido" nzIcon="lock" [nzDisabled]="true">
+        <ul>
+          <li nz-menu-item>
+            <a>Nuevo formulario</a>
+          </li>
+          <li nz-menu-item>
             <a>Historial lde reportes</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Barrido" nzIcon="profile">
+      <li nz-submenu nzTitle="Rastro" nzIcon="lock" [nzDisabled]="true">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item>
             <a>Nuevo formulario</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Historial lde reportes</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Rastro" nzIcon="profile">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Nuevo formulario</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item>
             <a>Historial lde reportes</a>
           </li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Colaboradores" nzIcon="team">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item>
             <a>Lista de colaboradores</a>
           </li>
         </ul>
@@ -53,6 +52,10 @@
       <li nz-menu-item>
         <i nz-icon nzType="setting"></i>
         <span>Configuración</span>
+      </li>
+      <li nz-menu-item (click)="logout()">
+        <i nz-icon nzType="logout"></i>
+        <span>Salir</span>
       </li>
     </ul>
   </nz-sider>
