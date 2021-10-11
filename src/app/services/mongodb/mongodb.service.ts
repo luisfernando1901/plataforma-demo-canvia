@@ -20,4 +20,9 @@ export class MongodbService {
     }
     return results;
   }
+
+  async queryForms(){
+    let results = await this.http.get('http://localhost:3000/templateFormularios').toPromise();
+    return results
+  }
 }
