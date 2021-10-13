@@ -25,6 +25,7 @@ import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nu
 import { HistorialdereportesComponent } from './subPages/corrales/historialdereportes/historialdereportes.component';
 //services
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
+import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
   ],
   providers:[
     MongodbService,
-    MessageService
+    MessageService,
+    PdfgeneratorService
   ]
 })
 export class PlataformaModule { }

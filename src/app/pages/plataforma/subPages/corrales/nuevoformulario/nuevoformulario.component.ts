@@ -4,6 +4,7 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { FormArray } from '@angular/forms';
 import {Message} from 'primeng//api';
 import {MessageService} from 'primeng/api';
+import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 
 @Component({
   selector: 'app-nuevoformulario',
@@ -18,6 +19,7 @@ export class NuevoformularioComponent implements OnInit {
   scoreCACN = '0';
   scoreCE = '0';
   scoreCEA = '0';
+  fechaDeEnvio = new Date().toLocaleDateString();
   //Variables
   location = [
     {
@@ -66,6 +68,7 @@ export class NuevoformularioComponent implements OnInit {
   });
   //Dinamic forms
   answersFormCACN = this.fb.group({
+    fecha_emision: this.fechaDeEnvio, 
     inventario_de_ganado: [],
     CACN: [],
     MVZ_CACN: [],
@@ -73,7 +76,8 @@ export class NuevoformularioComponent implements OnInit {
     CACN_answersSection1: this.fb.array([]),
     CACN_answersSection2: this.fb.array([]),
     CACN_answersSection3: this.fb.array([]),
-    CACN_answersSection4: this.fb.array([])
+    CACN_answersSection4: this.fb.array([]),
+    calificacion: this.scoreCACN
   });
   get CACN_answersSection1() {
     return this.answersFormCACN.controls["CACN_answersSection1"] as FormArray;
@@ -133,6 +137,7 @@ export class NuevoformularioComponent implements OnInit {
   }
 
   answersFormCE = this.fb.group({
+    fecha_emision: this.fechaDeEnvio,
     capacidad_instalada: [],
     capacidad_utilizada: [],
     numero_corrales_internos: [],
@@ -146,6 +151,7 @@ export class NuevoformularioComponent implements OnInit {
     CE_answersSection3: this.fb.array([]),
     CE_answersSection4: this.fb.array([]),
     observaciones_y_acuerdos: [],
+    calificacion: this.scoreCE
   });
   get CE_answersSection1() {
     return this.answersFormCE.controls["CE_answersSection1"] as FormArray;
@@ -205,6 +211,7 @@ export class NuevoformularioComponent implements OnInit {
   }
 
   answersFormCEA = this.fb.group({
+    fecha_emision: this.fechaDeEnvio,
     preguntas_iniciales1: this.fb.array([]),
     preguntas_iniciales2: this.fb.array([]),
     capacidad_instalada: [],
@@ -227,6 +234,7 @@ export class NuevoformularioComponent implements OnInit {
     CEA_answersSection3: this.fb.array([]),
     CEA_answersSection4: this.fb.array([]),
     observaciones_y_acuerdos: [],
+    calificacion: this.scoreCEA
   });
   get preguntas_iniciales1() {
     return this.answersFormCEA.controls["preguntas_iniciales1"] as FormArray;
@@ -309,14 +317,12 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _mongodb: MongodbService,private messageService: MessageService) {
+  constructor(private fb: FormBuilder, private _mongodb: MongodbService,private messageService: MessageService,private pdfGenerator:PdfgeneratorService) {
     this.queryMongodbTemplateForms();
-    
-
   }
 
   ngOnInit(): void {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    console.log(this.fechaDeEnvio);
   }
   // Función que consulta a Mongodb sobre los templates y crea los dynamic forms
   async queryMongodbTemplateForms() {
@@ -556,6 +562,7 @@ export class NuevoformularioComponent implements OnInit {
     this.scoreCEA = ((score / (size_CEA_s1 + size_CEA_s2 + size_CEA_s3 + size_CEA_s4)) * 100).toFixed(2);
     console.log(`Resultado de CEA: ${this.scoreCEA}`);
   }
+
   //Función que envía las respuestas del formulario de CACN
   async sendCACN() {
     console.log(this.answersFormCACN.value);
@@ -567,6 +574,10 @@ export class NuevoformularioComponent implements OnInit {
       let response: any = await this._mongodb.uploadForm(data);
       if (response['done'] == true) {
         this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
+        //Reseteamos el form
+        this.answersFormCACN.reset();
+        this.scoreCACN = '0';
+        console.log(this.answersFormCACN.value);
       }
       else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: response.msg });
@@ -575,15 +586,55 @@ export class NuevoformularioComponent implements OnInit {
       let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
     }
-    this.answersFormCACN.reset();
-    this.scoreCACN = '0';
-    console.log(this.answersFormCACN.value);
   }
-  sendCE() {
-    console.log(this.answersFormCE.value);
+
+  async sendCE() {
+    let data = {
+      form_type: 'ce',
+      form: this.answersFormCE.value
+    }
+    try {
+      let response: any = await this._mongodb.uploadForm(data);
+      if (response['done'] == true) {
+        this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
+        //Reseteamos el form
+        this.answersFormCE.reset();
+        this.scoreCE = '0';
+        console.log(this.answersFormCE.value);
+      }
+      else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: response.msg });
+      }
+    } catch (error) {
+      let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
+    }
   }
-  sendCEA() {
-    console.log(this.answersFormCEA.value);
+  async sendCEA() {
+    let data = {
+      form_type: 'cea',
+      form: this.answersFormCEA.value
+    }
+    try {
+      let response: any = await this._mongodb.uploadForm(data);
+      if (response['done'] == true) {
+        this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
+        //Reseteamos el form
+        this.answersFormCEA.reset();
+        this.scoreCE = '0';
+        console.log(this.answersFormCEA.value);
+      }
+      else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: response.msg });
+      }
+    } catch (error) {
+      let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
+    }
+  }
+
+  opemPDF(){
+    this.pdfGenerator.generatePdf();
   }
 }
 

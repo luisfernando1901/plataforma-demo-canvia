@@ -224,6 +224,9 @@
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCACN}}%</h3>
     </div>
+    <div class="flex justify-content-center">
+        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
+    </div>
     <br>
     <div class="flex justify-content-center">
         <p-button (click)="sendCACN()" label="Terminar formulario CACN"></p-button>
@@ -422,6 +425,9 @@
         [autoResize]="true"></textarea>
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCE}}%</h3>
+    </div>
+    <div class="flex justify-content-center">
+        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
     </div>
     <br>
     <div class="flex justify-content-center">
@@ -747,6 +753,9 @@
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCEA}}%</h3>
     </div>
+    <div class="flex justify-content-center">
+        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
+    </div>
     <br>
     <div class="flex justify-content-center">
         <p-button (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
@@ -756,3 +765,5 @@
 <div class="flex justify-content-center" *ngIf="isNothing">
     <h3>- Primero debe seleccionar un tipo de corral -</h3>
 </div>
+
+<button (click)="opemPDF()">hola</button>
