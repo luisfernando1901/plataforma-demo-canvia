@@ -1,3 +1,4 @@
+<p-toast position="top-right"></p-toast>
 <h2>Datos generales</h2>
 <form [formGroup]="generalInfoForm">
     <div class="flex flex-row flex-wrap">
@@ -82,8 +83,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCACN()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection1[i].respuesta == '1'">
@@ -118,8 +119,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCACN()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection2[i].respuesta == '1'">
@@ -154,8 +155,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCACN()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection3[i].respuesta == '1'">
@@ -190,8 +191,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCACN()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCACN.value.CACN_answersSection4[i].respuesta == '1'">
@@ -220,8 +221,11 @@
     <br>
     <h3>Observaciones y Acuerdos</h3>
     <textarea rows="5" cols="40" pInputTextarea [autoResize]="true"></textarea>
-    <br>
     <div class="flex justify-content-center mt-3">
+        <h3>Calificación: {{scoreCACN}}%</h3>
+    </div>
+    <br>
+    <div class="flex justify-content-center">
         <p-button (click)="sendCACN()" label="Terminar formulario CACN"></p-button>
     </div>
 </form>
@@ -277,8 +281,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCE()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection1[i].respuesta == '1'">
@@ -313,8 +317,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCE()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection2[i].respuesta == '1'">
@@ -349,8 +353,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCE()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection3[i].respuesta == '1'">
@@ -385,8 +389,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCE()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCE.value.CE_answersSection4[i].respuesta == '1'">
@@ -416,8 +420,11 @@
     <h3>Observaciones y Acuerdos</h3>
     <textarea rows="5" cols="40" formControlName="observaciones_y_acuerdos" pInputTextarea
         [autoResize]="true"></textarea>
-    <br>
     <div class="flex justify-content-center mt-3">
+        <h3>Calificación: {{scoreCE}}%</h3>
+    </div>
+    <br>
+    <div class="flex justify-content-center">
         <p-button (click)="sendCE()" label="Terminar formulario CE"></p-button>
     </div>
 </form>
@@ -497,31 +504,38 @@
     <div class="flex flex-row flex-wrap">
         <div class="m-2">
             <h4>Condición general de las instalaciones</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Infraestructura del corral en general.</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Corrales de descarga y manejo</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Corrales de confinamiento</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Planta de alimentos</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Abrevaderos</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
         <div class="m-2">
             <h4>Condición de las cercas del corral engorda que delimitan con vecinos. (Cerco Perimetral)</h4>
-        <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación" [showClear]="true"></p-dropdown>
+            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
+                [showClear]="true"></p-dropdown>
         </div>
     </div>
     <!-- Preguntas iniciales -->
@@ -591,8 +605,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCEA()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection1[i].respuesta == '1'">
@@ -627,8 +641,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCEA()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection2[i].respuesta == '1'">
@@ -663,8 +677,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCEA()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection3[i].respuesta == '1'">
@@ -699,8 +713,8 @@
             <div class="flex flex-row flex-wrap" [formGroupName]="i">
                 <div class="m-2">
                     <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
+                    <p-dropdown [options]="['0','1']" (onChange)="calculateScoreCEA()" formControlName="respuesta"
+                        placeholder="Seleccione respuesta" [showClear]="true">
                     </p-dropdown>
                 </div>
                 <div class="m-2" *ngIf="answersFormCEA.value.CEA_answersSection4[i].respuesta == '1'">
@@ -730,8 +744,11 @@
     <h3>Observaciones y Acuerdos</h3>
     <textarea rows="5" cols="40" formControlName="observaciones_y_acuerdos" pInputTextarea
         [autoResize]="true"></textarea>
-    <br>
     <div class="flex justify-content-center mt-3">
+        <h3>Calificación: {{scoreCEA}}%</h3>
+    </div>
+    <br>
+    <div class="flex justify-content-center">
         <p-button (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
     </div>
 </form>

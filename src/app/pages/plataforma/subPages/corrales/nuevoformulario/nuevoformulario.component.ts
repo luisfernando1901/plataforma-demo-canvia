@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { FormArray } from '@angular/forms';
+import {Message} from 'primeng//api';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-nuevoformulario',
@@ -10,9 +12,12 @@ import { FormArray } from '@angular/forms';
 })
 export class NuevoformularioComponent implements OnInit {
   //Variables con los templates de los formularios
-  formularioCACN:any;
-  formularioCE:any;
-  formularioCEA:any;
+  formularioCACN: any;
+  formularioCE: any;
+  formularioCEA: any;
+  scoreCACN = '0';
+  scoreCE = '0';
+  scoreCEA = '0';
   //Variables
   location = [
     {
@@ -304,17 +309,18 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
 
-   constructor(private fb: FormBuilder, private _mongodb: MongodbService) {
-     this.queryMongodbTemplateForms();
+  constructor(private fb: FormBuilder, private _mongodb: MongodbService,private messageService: MessageService) {
+    this.queryMongodbTemplateForms();
     
+
   }
 
-   ngOnInit(): void {
-
+  ngOnInit(): void {
+    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
   }
   // Función que consulta a Mongodb sobre los templates y crea los dynamic forms
-  async queryMongodbTemplateForms(){
-    let formularios:any = await this._mongodb.queryForms();
+  async queryMongodbTemplateForms() {
+    let formularios: any = await this._mongodb.queryForms();
     console.log(formularios['CACN_form']);
     this.formularioCACN = formularios['CACN_form'];
     this.formularioCE = formularios['CE_form'];
@@ -426,10 +432,152 @@ export class NuevoformularioComponent implements OnInit {
       });
     }
   }
-  //Función que envía las respuestas del formulario de CACN
-  sendCACN() {
-    console.log(this.answersFormCACN.value);
 
+  calculateScoreCACN() {
+    let score = 0;
+    let CACN_s1 = this.answersFormCACN.value['CACN_answersSection1']
+    let CACN_s2 = this.answersFormCACN.value['CACN_answersSection2']
+    let CACN_s3 = this.answersFormCACN.value['CACN_answersSection3']
+    let CACN_s4 = this.answersFormCACN.value['CACN_answersSection4']
+    let size_CACN_s1 = CACN_s1.length
+    let size_CACN_s2 = CACN_s2.length
+    let size_CACN_s3 = CACN_s3.length
+    let size_CACN_s4 = CACN_s4.length
+    for (let index = 0; index < size_CACN_s1; index++) {
+      const element = CACN_s1[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CACN_s2; index++) {
+      const element = CACN_s2[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CACN_s3; index++) {
+      const element = CACN_s3[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CACN_s4; index++) {
+      const element = CACN_s4[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    this.scoreCACN = ((score / (size_CACN_s1 + size_CACN_s2 + size_CACN_s3 + size_CACN_s4)) * 100).toFixed(2);
+    console.log(`Resultado de CACN: ${this.scoreCACN}`);
+  }
+  calculateScoreCE() {
+    let score = 0;
+    let CE_s1 = this.answersFormCE.value['CE_answersSection1']
+    let CE_s2 = this.answersFormCE.value['CE_answersSection2']
+    let CE_s3 = this.answersFormCE.value['CE_answersSection3']
+    let CE_s4 = this.answersFormCE.value['CE_answersSection4']
+    let size_CE_s1 = CE_s1.length
+    let size_CE_s2 = CE_s2.length
+    let size_CE_s3 = CE_s3.length
+    let size_CE_s4 = CE_s4.length
+    for (let index = 0; index < size_CE_s1; index++) {
+      const element = CE_s1[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CE_s2; index++) {
+      const element = CE_s2[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CE_s3; index++) {
+      const element = CE_s3[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CE_s4; index++) {
+      const element = CE_s4[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    this.scoreCE = ((score / (size_CE_s1 + size_CE_s2 + size_CE_s3 + size_CE_s4)) * 100).toFixed(2);
+    console.log(`Resultado de CE: ${this.scoreCE}`);
+  }
+  calculateScoreCEA() {
+    let score = 0;
+    let CEA_s1 = this.answersFormCEA.value['CEA_answersSection1']
+    let CEA_s2 = this.answersFormCEA.value['CEA_answersSection2']
+    let CEA_s3 = this.answersFormCEA.value['CEA_answersSection3']
+    let CEA_s4 = this.answersFormCEA.value['CEA_answersSection4']
+    let size_CEA_s1 = CEA_s1.length
+    let size_CEA_s2 = CEA_s2.length
+    let size_CEA_s3 = CEA_s3.length
+    let size_CEA_s4 = CEA_s4.length
+    for (let index = 0; index < size_CEA_s1; index++) {
+      const element = CEA_s1[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CEA_s2; index++) {
+      const element = CEA_s2[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CEA_s3; index++) {
+      const element = CEA_s3[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    for (let index = 0; index < size_CEA_s4; index++) {
+      const element = CEA_s4[index]['respuesta'];
+      if (element != null) {
+        if (element == '1')
+          score += 1;
+      }
+    }
+    this.scoreCEA = ((score / (size_CEA_s1 + size_CEA_s2 + size_CEA_s3 + size_CEA_s4)) * 100).toFixed(2);
+    console.log(`Resultado de CEA: ${this.scoreCEA}`);
+  }
+  //Función que envía las respuestas del formulario de CACN
+  async sendCACN() {
+    console.log(this.answersFormCACN.value);
+    let data = {
+      form_type: 'cacn',
+      form: this.answersFormCACN.value
+    }
+    try {
+      let response: any = await this._mongodb.uploadForm(data);
+      if (response['done'] == true) {
+        this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
+      }
+      else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: response.msg });
+      }
+    } catch (error) {
+      let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
+    }
+    this.answersFormCACN.reset();
+    this.scoreCACN = '0';
+    console.log(this.answersFormCACN.value);
   }
   sendCE() {
     console.log(this.answersFormCE.value);

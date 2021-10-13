@@ -15,6 +15,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TabViewModule} from 'primeng/tabview';
 import {DividerModule} from 'primeng/divider';
 import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 //Components
 import { IconsProviderModule } from '../..//icons-provider.module';
 import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nuevoformulario.component';
@@ -42,9 +46,13 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
     DividerModule,
     ButtonModule,
     InputTextareaModule,
+    ToastModule,
+    MessagesModule,
+    MessageModule
   ],
   providers:[
-    MongodbService
+    MongodbService,
+    MessageService
   ]
 })
 export class PlataformaModule { }

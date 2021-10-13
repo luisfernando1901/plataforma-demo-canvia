@@ -18,11 +18,16 @@ export class MongodbService {
     } catch (error) {
       results = {results: []};
     }
-    return results;
+    return results
   }
 
   async queryForms(){
     let results = await this.http.get('http://localhost:3000/templateFormularios').toPromise();
     return results
+  }
+
+  async uploadForm(data:object){
+    let result = await this.http.post('http://localhost:3000/guardarFormulario',data).toPromise();
+    return result
   }
 }
