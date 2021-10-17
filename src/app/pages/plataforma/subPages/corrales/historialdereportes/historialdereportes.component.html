@@ -1,5 +1,5 @@
 <h2>Historial de reportes</h2>
-<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" [nzLoading]="tableloadingIndicator">
   <thead>
     <tr>
       <th>Región</th>
@@ -38,12 +38,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of nzTable.data; let i = index">
-      <td>{{ data.region }}</td>
+      <td>{{ data.general_info.region }}</td>
       <td>{{ data.folio }}</td>
-      <td>{{ data.tipo_de_corral }}</td>
-      <td>{{ data.nombre_del_corral }}</td>
-      <td>{{ data.propietario }}</td>
-      <td>{{ data.fecha_de_captura }}</td>
+      <td>{{ data.general_info.tipoDeCorral }}</td>
+      <td>{{ data.general_info.infoCliente.NOMBRE }}</td>
+      <td>{{ data.general_info.infoCliente.PROPIETARIO }}</td>
+      <td>{{ data.general_info.fechaDeCaptura }}</td>
     </tr>
   </tbody>
 </nz-table>

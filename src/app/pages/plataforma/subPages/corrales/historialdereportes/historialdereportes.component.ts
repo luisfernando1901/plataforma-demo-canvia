@@ -8,6 +8,7 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 })
 export class HistorialdereportesComponent implements OnInit {
   searchValue = '';
+  tableloadingIndicator = true;
   visibleFolio = false;
   visibleTipoCorral = false;
   visibleNombreCorral = false;
@@ -15,77 +16,24 @@ export class HistorialdereportesComponent implements OnInit {
   visibleFechaCaptura = false;
   listOfData = [
     {
-      folio: 'John Brown',
-      region: 32,
-      tipo_de_corral: 'New York No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-    },
-    {
-      folio: 'Jim Green',
-      region: 42,
-      tipo_de_corral: 'London No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
-    },
-    {
-      folio: 'Joe Black',
-      region: 32,
-      tipo_de_corral: 'Sidney No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
-    },
-    {
-      folio: 'Jim Red',
-      region: 32,
-      tipo_de_corral: 'London No. 2 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
-    },
-    {
-      folio: 'John Brown',
-      region: 32,
-      tipo_de_corral: 'New York No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-    },
-    {
-      folio: 'Jim Green',
-      region: 42,
-      tipo_de_corral: 'London No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
-    },
-    {
-      folio: 'Joe Black',
-      region: 32,
-      tipo_de_corral: 'Sidney No. 1 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
-    },
-    {
-      folio: 'Jim Red',
-      region: 32,
-      tipo_de_corral: 'London No. 2 Lake Park',
-      nombre_del_corral: 'NOmbre del corral',
-      propietario: 'Luisfer',
-      fecha_de_captura: '05/08/2021'
-
+      folio: '-',
+      general_info: {
+        region: '-', tipoDeCorral: '-', fechaDeCaptura: '-',
+        infoCliente: {
+          NOMBRE: '-',
+          PROPIETARIO: '-',
+        }
+      },
     }
   ];
   listOfDisplayData = [...this.listOfData];
+
+  constructor(private _mongodb: MongodbService) { }
+
+  ngOnInit() {
+    this.getFormsRepository();
+  }
+
   //Folio
   resetFolio(): void {
     this.searchValue = '';
@@ -105,7 +53,7 @@ export class HistorialdereportesComponent implements OnInit {
 
   searchTipoCorral(): void {
     this.visibleTipoCorral = false;
-    this.listOfDisplayData = this.listOfData.filter((item) => item.tipo_de_corral.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.listOfData.filter((item) => item.general_info.tipoDeCorral.indexOf(this.searchValue) !== -1);
     console.log(this.listOfDisplayData);
   }
   //Nombre de corral
@@ -116,7 +64,7 @@ export class HistorialdereportesComponent implements OnInit {
 
   searchNombreCorral(): void {
     this.visibleNombreCorral = false;
-    this.listOfDisplayData = this.listOfData.filter((item) => item.nombre_del_corral.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.listOfData.filter((item) => item.general_info.infoCliente.NOMBRE.indexOf(this.searchValue) !== -1);
     console.log(this.listOfDisplayData);
   }
   //Propietario
@@ -127,7 +75,7 @@ export class HistorialdereportesComponent implements OnInit {
 
   searchPropietario(): void {
     this.visiblePropietario = false;
-    this.listOfDisplayData = this.listOfData.filter((item) => item.propietario.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.listOfData.filter((item) => item.general_info.infoCliente.PROPIETARIO.indexOf(this.searchValue) !== -1);
     console.log(this.listOfDisplayData);
   }
   //Fecha de captura
@@ -138,18 +86,23 @@ export class HistorialdereportesComponent implements OnInit {
 
   searchFechaCaptura(): void {
     this.visibleFechaCaptura = false;
-    this.listOfDisplayData = this.listOfData.filter((item) => item.fecha_de_captura.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.listOfData.filter((item) => item.general_info.fechaDeCaptura.indexOf(this.searchValue) !== -1);
     console.log(this.listOfDisplayData);
-  }
-  constructor(private _mongodb: MongodbService) { }
-
-  ngOnInit() {
-    this.getFormsRepository();
   }
 
   async getFormsRepository() {
-    var result = await this._mongodb.getForms();
+    var forms_array:any = [];
+    var result: any = await this._mongodb.getForms();
     console.log(result);
+    //Obtenemos CACN
+    var CACN_array = result.forms_historical.cacn_forms;
+    //Obtenemos CE
+    var CE_array = result.forms_historical.ce_forms;
+    //Obtenemos CEA
+    var CEA_array = result.forms_historical.cea_forms;
+    this.listOfData = forms_array.concat(CACN_array,CE_array,CEA_array);
+    this.resetFolio();
+    this.tableloadingIndicator = false;
   }
 
 }
