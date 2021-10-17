@@ -1,1 +1,98 @@
-<p>historialdereportes works!</p>
+<h2>Historial de reportes</h2>
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th>Región</th>
+      <th>
+        Folio
+        <nz-filter-trigger [(nzVisible)]="visibleFolio" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuFolio">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Tipo de corral
+        <nz-filter-trigger [(nzVisible)]="visibleTipoCorral" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuTipoCorral">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Nombre del corral
+        <nz-filter-trigger [(nzVisible)]="visibleNombreCorral" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuNombreCorral">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Propietario
+        <nz-filter-trigger [(nzVisible)]="visiblePropietario" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuPropietario">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Fecha de captura
+        <nz-filter-trigger [(nzVisible)]="visibleFechaCaptura" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuFechaCaptura">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data; let i = index">
+      <td>{{ data.region }}</td>
+      <td>{{ data.folio }}</td>
+      <td>{{ data.tipo_de_corral }}</td>
+      <td>{{ data.nombre_del_corral }}</td>
+      <td>{{ data.propietario }}</td>
+      <td>{{ data.fecha_de_captura }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menuFolio="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchFolio()" class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetFolio()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<nz-dropdown-menu #menuTipoCorral="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchTipoCorral()"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetTipoCorral()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<nz-dropdown-menu #menuNombreCorral="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchNombreCorral()"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetNombreCorral()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<nz-dropdown-menu #menuPropietario="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchPropietario()"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetPropietario()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<nz-dropdown-menu #menuFechaCaptura="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchFechaCaptura()"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetFechaCaptura()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

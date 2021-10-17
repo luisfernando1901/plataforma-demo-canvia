@@ -5,9 +5,13 @@ import { PlataformaRoutingModule } from './plataforma-routing.module';
 import { SidebarMenuComponent } from './subPages/sidebar-menu/sidebar-menu.component';
 import { InicioComponent } from './subPages/inicio/inicio.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 //NG-ZORRO modules
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 //PRIMENG modules
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
@@ -19,6 +23,7 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+
 //Components
 import { IconsProviderModule } from '../..//icons-provider.module';
 import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nuevoformulario.component';
@@ -26,13 +31,15 @@ import { HistorialdereportesComponent } from './subPages/corrales/historialderep
 //services
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
+import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de-colaboradores/lista-de-colaboradores.component';
 
 @NgModule({
   declarations: [
     SidebarMenuComponent,
     InicioComponent,
     NuevoformularioComponent,
-    HistorialdereportesComponent
+    HistorialdereportesComponent,
+    ListaDeColaboradoresComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +47,7 @@ import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.
     NzLayoutModule,
     NzMenuModule,
     IconsProviderModule,
+    FormsModule,
     DropdownModule,
     InputTextModule,
     TabViewModule,
@@ -49,7 +57,10 @@ import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.
     InputTextareaModule,
     ToastModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    NzTableModule,
+    NzDropDownModule,
+    NzButtonModule
   ],
   providers:[
     MongodbService,

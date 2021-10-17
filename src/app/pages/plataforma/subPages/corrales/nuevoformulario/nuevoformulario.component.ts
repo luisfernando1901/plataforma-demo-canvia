@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { FormArray } from '@angular/forms';
-import {Message} from 'primeng//api';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 
 @Component({
@@ -19,7 +18,6 @@ export class NuevoformularioComponent implements OnInit {
   scoreCACN = '0';
   scoreCE = '0';
   scoreCEA = '0';
-  fechaDeEnvio = new Date().toLocaleDateString();
   //Variables
   location = [
     {
@@ -57,18 +55,17 @@ export class NuevoformularioComponent implements OnInit {
     region: [],
     tipoDeCorral: [],
     infoCliente: [],
-    TIPO_DE_CORRAL: [],
-    NOMBRE: [],
     PROPIETARIO: [{ value: '', disabled: true }],
     DIRECCION: [{ value: '', disabled: true }],
     MUNICIPIO: [{ value: '', disabled: true }],
     PSG: [{ value: '', disabled: true }],
     LATITUD: [{ value: '', disabled: true }],
     LONGITUD: [{ value: '', disabled: true }],
+    folio: [{ value: '', disabled: true }],
+    fechaDeCaptura: [],
   });
   //Dinamic forms
   answersFormCACN = this.fb.group({
-    fecha_emision: this.fechaDeEnvio, 
     inventario_de_ganado: [],
     CACN: [],
     MVZ_CACN: [],
@@ -137,7 +134,6 @@ export class NuevoformularioComponent implements OnInit {
   }
 
   answersFormCE = this.fb.group({
-    fecha_emision: this.fechaDeEnvio,
     capacidad_instalada: [],
     capacidad_utilizada: [],
     numero_corrales_internos: [],
@@ -211,9 +207,6 @@ export class NuevoformularioComponent implements OnInit {
   }
 
   answersFormCEA = this.fb.group({
-    fecha_emision: this.fechaDeEnvio,
-    preguntas_iniciales1: this.fb.array([]),
-    preguntas_iniciales2: this.fb.array([]),
     capacidad_instalada: [],
     capacidad_utilizada: [],
     numero_corrales_internos: [],
@@ -236,12 +229,7 @@ export class NuevoformularioComponent implements OnInit {
     observaciones_y_acuerdos: [],
     calificacion: this.scoreCEA
   });
-  get preguntas_iniciales1() {
-    return this.answersFormCEA.controls["preguntas_iniciales1"] as FormArray;
-  }
-  get preguntas_iniciales2() {
-    return this.answersFormCEA.controls["preguntas_iniciales2"] as FormArray;
-  }
+
   get CEA_answersSection1() {
     return this.answersFormCEA.controls["CEA_answersSection1"] as FormArray;
   }
@@ -254,24 +242,7 @@ export class NuevoformularioComponent implements OnInit {
   get CEA_answersSection4() {
     return this.answersFormCEA.controls["CEA_answersSection4"] as FormArray;
   }
-  addPreguntasIniciales1Data(cantidad: number) {
-    for (let index = 0; index < cantidad; index++) {
-      const answerData = this.fb.group({
-        respuesta: [],
-        observaciones: []
-      });
-      this.preguntas_iniciales1.push(answerData);
-    }
-  }
-  addPreguntasIniciales2Data(cantidad: number) {
-    for (let index = 0; index < cantidad; index++) {
-      const answerData = this.fb.group({
-        respuesta: [],
-        observaciones: []
-      });
-      this.preguntas_iniciales2.push(answerData);
-    }
-  }
+
   addCEA_AnswersSection1Data(cantidad: number) {
     for (let index = 0; index < cantidad; index++) {
       const answerData = this.fb.group({
@@ -317,12 +288,11 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _mongodb: MongodbService,private messageService: MessageService,private pdfGenerator:PdfgeneratorService) {
+  constructor(private fb: FormBuilder, private _mongodb: MongodbService, private messageService: MessageService, private pdfGenerator: PdfgeneratorService) {
     this.queryMongodbTemplateForms();
   }
 
   ngOnInit(): void {
-    console.log(this.fechaDeEnvio);
   }
   // Función que consulta a Mongodb sobre los templates y crea los dynamic forms
   async queryMongodbTemplateForms() {
@@ -347,8 +317,6 @@ export class NuevoformularioComponent implements OnInit {
     this.addCEA_AnswersSection2Data(formularios['CEA_form']['seccion2']['questionario'].length);
     this.addCEA_AnswersSection3Data(formularios['CEA_form']['seccion3']['questionario'].length);
     this.addCEA_AnswersSection4Data(formularios['CEA_form']['seccion4']['questionario'].length);
-    this.addPreguntasIniciales1Data(formularios['CEA_form']['preguntasIniciales1']['questionario'].length);
-    this.addPreguntasIniciales2Data(formularios['CEA_form']['preguntasIniciales2']['questionario'].length);
   }
 
   //Función que se activa cada vez que se cambia el dropdown de Region
@@ -371,7 +339,7 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
   //Función que filtra la búsqueda por tipo de corral y muestra el formulario correspondiente
-  filterByCorralType() {
+  async filterByCorralType() {
     let filteredResults: object[] = [];
     if (this.generalInfoForm.value['tipoDeCorral'] != null && this.generalInfoForm.value['region'] != null) {
       this.generalInfoForm.patchValue({ infoCliente: null });
@@ -382,6 +350,8 @@ export class NuevoformularioComponent implements OnInit {
           filteredResults.push(single);
         }
       });
+      let folioName = await this._mongodb.getFolioName(type);
+      this.generalInfoForm.patchValue({ folio: folioName });
       this.directoryDataFiltered = filteredResults;
       console.log(filteredResults);
       //Mostramos formulario
@@ -422,11 +392,13 @@ export class NuevoformularioComponent implements OnInit {
       this.isNothing = true;
       this.directoryDataFiltered = [];
       this.generalInfoForm.patchValue({ infoCliente: null });
+      this.generalInfoForm.patchValue({ folio: null });
     }
   }
   //Función para obtener los datos del cliente seleccionado
   getClientInfo() {
     var clientInfo = this.generalInfoForm.value['infoCliente'];
+    console.log(clientInfo);
     if (clientInfo != null) {
       this.generalInfoForm.patchValue({
         PROPIETARIO: clientInfo['PROPIETARIO'],
@@ -436,6 +408,7 @@ export class NuevoformularioComponent implements OnInit {
         LATITUD: clientInfo['LATITUD'],
         LONGITUD: clientInfo['LONGITUD'],
       });
+      console.log(this.generalInfoForm.value);
     }
   }
 
@@ -478,6 +451,7 @@ export class NuevoformularioComponent implements OnInit {
       }
     }
     this.scoreCACN = ((score / (size_CACN_s1 + size_CACN_s2 + size_CACN_s3 + size_CACN_s4)) * 100).toFixed(2);
+    this.answersFormCACN.patchValue({ calificacion: this.scoreCACN });
     console.log(`Resultado de CACN: ${this.scoreCACN}`);
   }
   calculateScoreCE() {
@@ -519,6 +493,7 @@ export class NuevoformularioComponent implements OnInit {
       }
     }
     this.scoreCE = ((score / (size_CE_s1 + size_CE_s2 + size_CE_s3 + size_CE_s4)) * 100).toFixed(2);
+    this.answersFormCE.patchValue({ calificacion: this.scoreCE });
     console.log(`Resultado de CE: ${this.scoreCE}`);
   }
   calculateScoreCEA() {
@@ -560,14 +535,16 @@ export class NuevoformularioComponent implements OnInit {
       }
     }
     this.scoreCEA = ((score / (size_CEA_s1 + size_CEA_s2 + size_CEA_s3 + size_CEA_s4)) * 100).toFixed(2);
+    this.answersFormCEA.patchValue({ calificacion: this.scoreCEA });
     console.log(`Resultado de CEA: ${this.scoreCEA}`);
   }
 
   //Función que envía las respuestas del formulario de CACN
   async sendCACN() {
-    console.log(this.answersFormCACN.value);
     let data = {
       form_type: 'cacn',
+      folio: this.generalInfoForm.getRawValue()['folio'],
+      general_info: this.generalInfoForm.value,
       form: this.answersFormCACN.value
     }
     try {
@@ -576,7 +553,13 @@ export class NuevoformularioComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
         //Reseteamos el form
         this.answersFormCACN.reset();
+        this.generalInfoForm.reset();
+        
         this.scoreCACN = '0';
+        this.isCACNform = false;
+        this.isCEform = false;
+        this.isCEAform = false;
+        this.isNothing = true;
         console.log(this.answersFormCACN.value);
       }
       else {
@@ -591,6 +574,8 @@ export class NuevoformularioComponent implements OnInit {
   async sendCE() {
     let data = {
       form_type: 'ce',
+      folio: this.generalInfoForm.getRawValue()['folio'],
+      general_info: this.generalInfoForm.value,
       form: this.answersFormCE.value
     }
     try {
@@ -599,7 +584,13 @@ export class NuevoformularioComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
         //Reseteamos el form
         this.answersFormCE.reset();
+        this.generalInfoForm.reset();
+        
         this.scoreCE = '0';
+        this.isCACNform = false;
+        this.isCEform = false;
+        this.isCEAform = false;
+        this.isNothing = true;
         console.log(this.answersFormCE.value);
       }
       else {
@@ -613,6 +604,8 @@ export class NuevoformularioComponent implements OnInit {
   async sendCEA() {
     let data = {
       form_type: 'cea',
+      folio: this.generalInfoForm.getRawValue()['folio'],
+      general_info: this.generalInfoForm.value,
       form: this.answersFormCEA.value
     }
     try {
@@ -621,7 +614,13 @@ export class NuevoformularioComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: response.msg });
         //Reseteamos el form
         this.answersFormCEA.reset();
-        this.scoreCE = '0';
+        this.generalInfoForm.reset();
+        
+        //this.scoreCEA = '0';
+        this.isCACNform = false;
+        this.isCEform = false;
+        this.isCEAform = false;
+        this.isNothing = true;
         console.log(this.answersFormCEA.value);
       }
       else {
@@ -633,7 +632,7 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
 
-  opemPDF(){
+  opemPDF() {
     this.pdfGenerator.generatePdf();
   }
 }

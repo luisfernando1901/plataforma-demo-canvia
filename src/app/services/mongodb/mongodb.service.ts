@@ -30,4 +30,20 @@ export class MongodbService {
     let result = await this.http.post('http://localhost:3000/guardarFormulario',data).toPromise();
     return result
   }
+
+  async getForms(){
+    let result = await this.http.get('http://localhost:3000/historicoDeFormularios').toPromise();
+    return result
+  }
+
+  async getColaboratorsList(){
+    let result = await this.http.get('http://localhost:3000/listaDeColaboradores').toPromise();
+    return result
+  }
+
+  async getFolioName(corralType:string){
+    let queryCorralType = { corralType: corralType};
+    let result:any = await this.http.post('http://localhost:3000/folioPorTipoDeCorral',queryCorralType).toPromise();
+    return result.folioName
+  }
 }

@@ -9,13 +9,13 @@
             </p-dropdown>
         </div>
         <div class="m-2">
-            <h3>Tipo de corral</h3>
+            <h3>Tipo</h3>
             <p-dropdown [options]="tipoDeCorral" formControlName="tipoDeCorral" (onChange)="filterByCorralType()"
                 placeholder="Seleccione corral" optionValue="tipo" optionLabel="tipo" [showClear]="true">
             </p-dropdown>
         </div>
         <div class="m-2">
-            <h3>Nombre</h3>
+            <h3>Nombre de corral</h3>
             <p-dropdown [options]="directoryDataFiltered" formControlName="infoCliente" (onChange)="getClientInfo()"
                 placeholder="Seleccione el nombre" optionLabel="NOMBRE" [showClear]="true">
             </p-dropdown>
@@ -43,6 +43,14 @@
         <div class="m-2">
             <h3>Longitud</h3>
             <input formControlName="LONGITUD" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Folio</h3>
+            <input formControlName="folio" type="text" pInputText>
+        </div>
+        <div class="m-2">
+            <h3>Fecha de captura</h3>
+            <input formControlName="fechaDeCaptura" type="date" pInputText>
         </div>
     </div>
 </form>
@@ -223,9 +231,6 @@
     <textarea rows="5" cols="40" pInputTextarea [autoResize]="true"></textarea>
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCACN}}%</h3>
-    </div>
-    <div class="flex justify-content-center">
-        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
     </div>
     <br>
     <div class="flex justify-content-center">
@@ -426,9 +431,6 @@
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCE}}%</h3>
     </div>
-    <div class="flex justify-content-center">
-        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
-    </div>
     <br>
     <div class="flex justify-content-center">
         <p-button (click)="sendCE()" label="Terminar formulario CE"></p-button>
@@ -436,7 +438,7 @@
 </form>
 <!-- FORMULARIO CEA-->
 <form [formGroup]="answersFormCEA" *ngIf="isCEAform">
-    <!-- INFORMACIÓN GENERAL SOBRE CE -->
+    <!-- INFORMACIÓN GENERAL SOBRE CEA -->
     <h3>INFORMACIÓN GENERAL - PARTE 1</h3>
     <div class="flex flex-row flex-wrap">
         <div class="m-2">
@@ -505,100 +507,6 @@
             <input class="fillAvailable" formControlName="numero_cabezas_en_el_CEA_ultimo_dia_mes_evaluacion"
                 type="text" pInputText>
         </div>
-    </div>
-    <!-- Preguntas de la primera tabla roja -->
-    <div class="flex flex-row flex-wrap">
-        <div class="m-2">
-            <h4>Condición general de las instalaciones</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Infraestructura del corral en general.</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Corrales de descarga y manejo</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Corrales de confinamiento</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Planta de alimentos</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Abrevaderos</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-        <div class="m-2">
-            <h4>Condición de las cercas del corral engorda que delimitan con vecinos. (Cerco Perimetral)</h4>
-            <p-dropdown [options]="['Muy Bueno','Bueno','Regular','Malo']" placeholder="Seleccione una calificación"
-                [showClear]="true"></p-dropdown>
-        </div>
-    </div>
-    <!-- Preguntas iniciales -->
-    <h3>INFORMACIÓN GENERAL - PARTE 2</h3>
-    <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
-    <div formArrayName="preguntas_iniciales1">
-        <h3>{{formularioCEA.preguntasIniciales1['titulo']}}</h3>
-        <div *ngFor="let singleAnswer of preguntas_iniciales1.controls; let i = index">
-            <h4>{{formularioCEA.preguntasIniciales1.questionario[i].pregunta}}</h4>
-            <div class="flex flex-row flex-wrap" [formGroupName]="i">
-                <div class="m-2">
-                    <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
-                    </p-dropdown>
-                </div>
-                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales1[i].respuesta == '1'">
-                    <h5>Observaciones</h5>
-                    <p-dropdown [options]="formularioCEA.preguntasIniciales1.questionario[i].respuestas['1']"
-                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
-                    </p-dropdown>
-                </div>
-                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales1[i].respuesta == '0'">
-                    <h5>Observaciones</h5>
-                    <p-dropdown [options]="formularioCEA.preguntasIniciales1.questionario[i].respuestas['0']"
-                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
-                    </p-dropdown>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div formArrayName="preguntas_iniciales2">
-        <h3>{{formularioCEA.preguntasIniciales2['titulo']}}</h3>
-        <div *ngFor="let singleAnswer of preguntas_iniciales2.controls; let i = index">
-            <h4>{{formularioCEA.preguntasIniciales2.questionario[i].pregunta}}</h4>
-            <div class="flex flex-row flex-wrap" [formGroupName]="i">
-                <div class="m-2">
-                    <h5>Respuesta</h5>
-                    <p-dropdown [options]="['0','1']" formControlName="respuesta" placeholder="Seleccione respuesta"
-                        [showClear]="true">
-                    </p-dropdown>
-                </div>
-                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales2[i].respuesta == '1'">
-                    <h5>Observaciones</h5>
-                    <p-dropdown [options]="formularioCEA.preguntasIniciales2.questionario[i].respuestas['1']"
-                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
-                    </p-dropdown>
-                </div>
-                <div class="m-2" *ngIf="answersFormCEA.value.preguntas_iniciales2[i].respuesta == '0'">
-                    <h5>Observaciones</h5>
-                    <p-dropdown [options]="formularioCEA.preguntasIniciales2.questionario[i].respuestas['0']"
-                        formControlName="observaciones" placeholder="Seleccione respuesta" [showClear]="true">
-                    </p-dropdown>
-                </div>
-            </div>
-        </div>
-
     </div>
     <h2 class="flex justify-content-center mt-3" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
         REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA APROBADOS (CEA)</h2>
@@ -753,9 +661,6 @@
     <div class="flex justify-content-center mt-3">
         <h3>Calificación: {{scoreCEA}}%</h3>
     </div>
-    <div class="flex justify-content-center">
-        <h3>Fecha de emisión: {{fechaDeEnvio}}</h3>
-    </div>
     <br>
     <div class="flex justify-content-center">
         <p-button (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
@@ -766,4 +671,4 @@
     <h3>- Primero debe seleccionar un tipo de corral -</h3>
 </div>
 
-<button (click)="opemPDF()">hola</button>
+<button (click)="opemPDF()">PDF</button>
