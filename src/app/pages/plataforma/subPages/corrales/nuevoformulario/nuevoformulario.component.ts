@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { FormArray } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 
 @Component({
   selector: 'app-nuevoformulario',
@@ -288,7 +287,7 @@ export class NuevoformularioComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _mongodb: MongodbService, private messageService: MessageService, private pdfGenerator: PdfgeneratorService) {
+  constructor(private fb: FormBuilder, private _mongodb: MongodbService, private messageService: MessageService) {
     this.queryMongodbTemplateForms();
   }
 
@@ -630,10 +629,6 @@ export class NuevoformularioComponent implements OnInit {
       let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
     }
-  }
-
-  opemPDF() {
-    this.pdfGenerator.generatePdf();
   }
 }
 

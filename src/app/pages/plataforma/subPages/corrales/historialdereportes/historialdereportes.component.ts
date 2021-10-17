@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
+import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 
 @Component({
   selector: 'app-historialdereportes',
@@ -8,6 +9,7 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 })
 export class HistorialdereportesComponent implements OnInit {
   searchValue = '';
+  templateFormularios = {};
   tableloadingIndicator = true;
   visibleFolio = false;
   visibleTipoCorral = false;
@@ -18,7 +20,9 @@ export class HistorialdereportesComponent implements OnInit {
     {
       folio: '-',
       general_info: {
-        region: '-', tipoDeCorral: '-', fechaDeCaptura: '-',
+        region: '-',
+        tipoDeCorral: '-',
+        fechaDeCaptura: '-',
         infoCliente: {
           NOMBRE: '-',
           PROPIETARIO: '-',
@@ -28,7 +32,7 @@ export class HistorialdereportesComponent implements OnInit {
   ];
   listOfDisplayData = [...this.listOfData];
 
-  constructor(private _mongodb: MongodbService) { }
+  constructor(private _mongodb: MongodbService,private pdfGenerator: PdfgeneratorService) { }
 
   ngOnInit() {
     this.getFormsRepository();
@@ -93,6 +97,7 @@ export class HistorialdereportesComponent implements OnInit {
   async getFormsRepository() {
     var forms_array:any = [];
     var result: any = await this._mongodb.getForms();
+    await this.getFormsTemplates();
     console.log(result);
     //Obtenemos CACN
     var CACN_array = result.forms_historical.cacn_forms;
@@ -103,6 +108,16 @@ export class HistorialdereportesComponent implements OnInit {
     this.listOfData = forms_array.concat(CACN_array,CE_array,CEA_array);
     this.resetFolio();
     this.tableloadingIndicator = false;
+  }
+
+  async getFormsTemplates() {
+    this.templateFormularios = await this._mongodb.queryForms();
+    console.log(this.templateFormularios);
+  }
+
+  getPDF(i:number) {
+    console.log(i);
+    this.pdfGenerator.generatePdf(i,this.templateFormularios);
   }
 
 }

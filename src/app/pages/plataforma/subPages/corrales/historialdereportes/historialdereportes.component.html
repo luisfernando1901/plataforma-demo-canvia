@@ -34,6 +34,9 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
+      <th>
+        Opciones
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -44,6 +47,7 @@
       <td>{{ data.general_info.infoCliente.NOMBRE }}</td>
       <td>{{ data.general_info.infoCliente.PROPIETARIO }}</td>
       <td>{{ data.general_info.fechaDeCaptura }}</td>
+      <td><i nz-icon nzType="file-pdf" style="font-size: 25px; color: rgba(255, 0, 0, 0.747);cursor: pointer;" nzTheme="outline" (click)="getPDF(i)"></i></td>
     </tr>
   </tbody>
 </nz-table>
