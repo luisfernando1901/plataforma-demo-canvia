@@ -117,7 +117,9 @@ export class HistorialdereportesComponent implements OnInit {
 
   getPDF(i:number) {
     console.log(i);
-    this.pdfGenerator.generatePdf(i,this.templateFormularios);
+    let type:string = '';
+    let formAnswers = this.listOfDisplayData[i];
+    this.pdfGenerator.generatePdf(formAnswers,this.templateFormularios,type);
   }
 
 }
