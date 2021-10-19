@@ -16,6 +16,7 @@ export class SidebarMenuComponent implements OnInit {
 
   // Función para el cierre de sesión
   logout(){
+    sessionStorage.removeItem('comiteToken');
     this.router.navigate(['/login']);
   }
 

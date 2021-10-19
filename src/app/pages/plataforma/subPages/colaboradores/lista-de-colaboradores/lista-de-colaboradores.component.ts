@@ -63,6 +63,6 @@ export class ListaDeColaboradoresComponent implements OnInit {
     let result:any = await this._mongodb.getColaboratorsList();
     this.colaborators = result.usersList;
     this.tableloadingIndicator = false;
-    this.search();
+    this.reset();
   }
 }

@@ -5,6 +5,8 @@ import { HistorialdereportesComponent } from './subPages/corrales/historialderep
 import { NuevoformularioComponent } from './subPages/corrales/nuevoformulario/nuevoformulario.component';
 import { InicioComponent } from './subPages/inicio/inicio.component';
 import { SidebarMenuComponent } from './subPages/sidebar-menu/sidebar-menu.component';
+//Guards
+import { AuthGuard } from 'src/app/services/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'inicio' },
@@ -12,16 +14,17 @@ const routes: Routes = [
     path: '', 
     component: SidebarMenuComponent,
     children: [
-      { path: 'inicio', component: InicioComponent },
-      { path: 'corrales/nuevoformulario', component: NuevoformularioComponent },
-      { path: 'corrales/historialdereportes', component: HistorialdereportesComponent },
-      { path: 'listadecolaboradores', component: ListaDeColaboradoresComponent }
+      { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
+      { path: 'corrales/nuevoformulario', component: NuevoformularioComponent,canActivate:[AuthGuard] },
+      { path: 'corrales/historialdereportes', component: HistorialdereportesComponent,canActivate:[AuthGuard] },
+      { path: 'listadecolaboradores', component: ListaDeColaboradoresComponent,canActivate:[AuthGuard] }
     ]
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthGuard]
 })
 export class PlataformaRoutingModule { }
