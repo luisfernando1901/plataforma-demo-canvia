@@ -18,7 +18,7 @@ export class MongodbService {
     };
     let results
     try {
-      results = await this.http.post(`${environment.base_dev_url}/directorioPorRegion`,queryRegion,{headers:{'authorization': this.token}}).toPromise();
+      results = await this.http.post(`${environment.base_url}/directorioPorRegion`,queryRegion,{headers:{'authorization': this.token}}).toPromise();
     } catch (error) {
       results = {results: []};
     }
@@ -27,43 +27,43 @@ export class MongodbService {
 
   async queryForms(){
     this.getSessionToken();
-    let results = await this.http.get(`${environment.base_dev_url}/templateFormularios`,{headers:{'authorization': this.token}}).toPromise();
+    let results = await this.http.get(`${environment.base_url}/templateFormularios`,{headers:{'authorization': this.token}}).toPromise();
     return results
   }
 
   async uploadForm(data:object){
     this.getSessionToken();
-    let result = await this.http.post(`${environment.base_dev_url}/guardarFormulario`,data,{headers:{'authorization': this.token}}).toPromise();
+    let result = await this.http.post(`${environment.base_url}/guardarFormulario`,data,{headers:{'authorization': this.token}}).toPromise();
     return result
   }
 
   async getForms(){
     this.getSessionToken();
-    let result = await this.http.get(`${environment.base_dev_url}/historicoDeFormularios`,{headers:{'authorization': this.token}}).toPromise();
+    let result = await this.http.get(`${environment.base_url}/historicoDeFormularios`,{headers:{'authorization': this.token}}).toPromise();
     return result
   }
 
   async getColaboratorsList(){
     this.getSessionToken();
-    let result = await this.http.get(`${environment.base_dev_url}/listaDeColaboradores`,{headers:{'authorization': this.token}}).toPromise();
+    let result = await this.http.get(`${environment.base_url}/listaDeColaboradores`,{headers:{'authorization': this.token}}).toPromise();
     return result
   }
 
   async getFolioName(corralType:string){
     this.getSessionToken();
     let queryCorralType = { corralType: corralType};
-    let result:any = await this.http.post(`${environment.base_dev_url}/folioPorTipoDeCorral`,queryCorralType,{headers:{'authorization': this.token}}).toPromise();
+    let result:any = await this.http.post(`${environment.base_url}/folioPorTipoDeCorral`,queryCorralType,{headers:{'authorization': this.token}}).toPromise();
     return result.folioName
   }
 
   async authenticateUser(userCredentials:object){
-    let result = await this.http.post(`${environment.base_dev_url}/authenticate`,userCredentials).toPromise();
+    let result = await this.http.post(`${environment.base_url}/authenticate`,userCredentials).toPromise();
     return result
   }
 
   async verifyAndReniewToken(){
     this.getSessionToken();
-    let result = await this.http.get(`${environment.base_dev_url}/verifyToken`,{headers:{'authorization': this.token}}).toPromise();
+    let result = await this.http.get(`${environment.base_url}/verifyToken`,{headers:{'authorization': this.token}}).toPromise();
     return result
   }
 

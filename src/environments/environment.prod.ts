@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
-  base_dev_url: 'http://localhost:3000',
-  base_prod_url: ''
+  // Development url
+  //base_url: 'http://localhost:3000',
+  // Production url
+  base_url: 'https://comite-pecuario-sinaloa.uc.r.appspot.com',  
 };
