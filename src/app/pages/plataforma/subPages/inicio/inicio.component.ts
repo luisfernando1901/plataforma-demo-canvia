@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-
+  actualizationHour = new Date().toISOString();
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.actualizationHour);
   }
 
 }
