@@ -61,6 +61,11 @@ export class MongodbService {
     let result = await this.http.post(`${environment.base_url}/authenticate`, userCredentials).toPromise();
     return result
   }
+  // Función para obtener la información de tendencias
+  async getInfoExcelTendencias() {
+    let result:any = await this.http.get(`${environment.base_url}/obtenerInfoExcelTendencias`, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
   // Función para verificar validez del token
   async verifyAndReniewToken() {
     this.getSessionToken();

@@ -32,21 +32,22 @@ export class InicioComponent implements OnInit {
    this.total_number_of_forms = this.cacn_number + this.ce_number + this.cea_number;
   }
   //Función para generar excel de tendecias en zona SUR
-  generateExcelSur() {
+  async generateExcelTendencias() {
+    let excelData = await this._mongodb.getInfoExcelTendencias();
+    let ws_data_cacn = excelData.ws_data_cacn;
+    let ws_data_ce = excelData.ws_data_ce;
+    let ws_data_cea = excelData.ws_data_cea;
     /* create a new blank workbook */
     var wb = XLSX.utils.book_new();
-    var ws_name = "SheetJS";
-
-    /* make worksheet */
-    var ws_data = [
-      ["S", "h", "e", "e", "t", "J", "S"],
-      [1, 2, 3, 4, 5]
-    ];
-    var ws = XLSX.utils.aoa_to_sheet(ws_data);
-
+    /* make worksheets */
+    var ws_cacn = XLSX.utils.aoa_to_sheet(ws_data_cacn);
+    var ws_ce = XLSX.utils.aoa_to_sheet(ws_data_ce);
+    var ws_cea = XLSX.utils.aoa_to_sheet(ws_data_cea);
     /* Add the worksheet to the workbook */
-    XLSX.utils.book_append_sheet(wb, ws, ws_name);
-    XLSX.writeFile(wb, 'out.xlsb');
+    XLSX.utils.book_append_sheet(wb, ws_cacn, 'CACN');
+    XLSX.utils.book_append_sheet(wb, ws_ce, 'CE');
+    XLSX.utils.book_append_sheet(wb, ws_cea, 'CEA');
+    XLSX.writeFile(wb, 'TENDENCIAS.xlsx');
   }
   //Función para generar excel de tendecias en zona CENTRO
   generateExcelCentro() {
