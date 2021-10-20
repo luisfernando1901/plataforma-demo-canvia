@@ -10,6 +10,8 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./nuevoformulario.component.css']
 })
 export class NuevoformularioComponent implements OnInit {
+  //Indicador de carga
+  isLoading = false;
   //Variables con los templates de los formularios
   formularioCACN: any;
   formularioCE: any;
@@ -320,12 +322,14 @@ export class NuevoformularioComponent implements OnInit {
 
   //Función que se activa cada vez que se cambia el dropdown de Region
   async querySelectedRegionDirectory() {
+    this.isLoading = true;
     let regionValue = this.generalInfoForm.value['region'];
     if (regionValue != null) {
       let results: any = await this._mongodb.queryRegion(regionValue);
       this.directoryData = results;
       console.log(this.directoryData);
       this.filterByCorralType();
+      this.isLoading = false;
     }
     else {
       this.isCACNform = false;
@@ -335,6 +339,7 @@ export class NuevoformularioComponent implements OnInit {
       this.directoryDataFiltered = [];
       this.generalInfoForm.patchValue({ tipoDeCorral: null });
       this.generalInfoForm.patchValue({ infoCliente: null });
+      this.isLoading = false;
     }
   }
   //Función que filtra la búsqueda por tipo de corral y muestra el formulario correspondiente

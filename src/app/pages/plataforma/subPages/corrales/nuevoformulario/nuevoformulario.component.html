@@ -659,6 +659,7 @@
     </div>
 </form>
 <!-- MENSAJE DE QUE AÚN NO SE HA ELEGIDO FORMULARIO -->
-<div class="flex justify-content-center" *ngIf="isNothing">
+<div class="flex flex-column justify-content-center align-items-center" *ngIf="isNothing">
+    <i nz-icon nzType="loading" style="font-size: 32px; margin: 16px; color: blue;" nzTheme="outline" *ngIf="isLoading"></i>
     <h3>- Primero debe seleccionar un tipo de corral -</h3>
 </div>
