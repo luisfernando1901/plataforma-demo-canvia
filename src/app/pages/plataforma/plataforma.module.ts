@@ -12,6 +12,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 //PRIMENG modules
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
@@ -60,7 +61,8 @@ import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de
     MessageModule,
     NzTableModule,
     NzDropDownModule,
-    NzButtonModule
+    NzButtonModule,
+    NzIconModule
   ],
   providers:[
     MongodbService,

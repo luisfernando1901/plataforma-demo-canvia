@@ -49,7 +49,6 @@ export class ListaDeColaboradoresComponent implements OnInit {
   search(): void {
     this.visible = false;
     this.listOfDisplayData = this.colaborators.filter((item) => item.nombre.indexOf(this.searchValue) !== -1);
-    console.log(this.listOfDisplayData);
   }
   constructor(private _mongodb:MongodbService) {
     this.getColaboratorsList();
