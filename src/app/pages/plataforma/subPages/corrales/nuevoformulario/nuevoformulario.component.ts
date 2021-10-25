@@ -12,6 +12,8 @@ import { MessageService } from 'primeng/api';
 export class NuevoformularioComponent implements OnInit {
   //Indicador de carga
   isLoading = false;
+  //Indicador de subida de archivo
+  isUploading = false;
   //Variables con los templates de los formularios
   formularioCACN: any;
   formularioCE: any;
@@ -545,6 +547,7 @@ export class NuevoformularioComponent implements OnInit {
 
   //Función que envía las respuestas del formulario de CACN
   async sendCACN() {
+    this.isUploading = true;
     let data = {
       form_type: 'cacn',
       folio: this.generalInfoForm.getRawValue()['folio'],
@@ -573,9 +576,11 @@ export class NuevoformularioComponent implements OnInit {
       let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
     }
+    this.isUploading = false;
   }
 
   async sendCE() {
+    this.isUploading = true;
     let data = {
       form_type: 'ce',
       folio: this.generalInfoForm.getRawValue()['folio'],
@@ -604,8 +609,10 @@ export class NuevoformularioComponent implements OnInit {
       let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
     }
+    this.isUploading = false;
   }
   async sendCEA() {
+    this.isUploading = true;
     let data = {
       form_type: 'cea',
       folio: this.generalInfoForm.getRawValue()['folio'],
@@ -634,6 +641,7 @@ export class NuevoformularioComponent implements OnInit {
       let error_msg = { done: false, msg: 'No se pudo Almacenar.' };
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error_msg.msg });
     }
+    this.isUploading = false;
   }
 }
 
