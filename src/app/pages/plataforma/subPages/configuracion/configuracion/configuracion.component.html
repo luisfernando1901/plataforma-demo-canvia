@@ -1,0 +1,26 @@
+<p-toast position="top-right"></p-toast>
+<h2>Agregar nuevo colaborador</h2>
+<hr>
+<form [formGroup]="newUser">
+    <div class="flex flex-row flex-wrap">
+        <div class="p-1">
+            <h4>Nombre</h4>
+            <input type="text" formControlName="nombre" pInputText>
+        </div>
+        <div class="p-1">
+            <h4>correo</h4>
+            <input type="email" formControlName="email" pInputText>
+        </div>
+        <div class="p-1">
+            <h4>Contraseña</h4>
+            <p-password formControlName="password" [toggleMask]="true"></p-password>
+        </div>
+        <div class="p-1">
+            <h4>Rol</h4>
+            <input type="text" formControlName="rol" pInputText>
+        </div>
+    </div>
+    <div class="p-1">
+        <p-button (click)="createNewUser()" [disabled]="buttonDisabled" label="Crear"></p-button>
+    </div>
+</form>

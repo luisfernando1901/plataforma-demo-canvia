@@ -34,6 +34,12 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
+      <th>Realizado por
+        <nz-filter-trigger [(nzVisible)]="visibleRealizadoPor" [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menuRealizadoPor">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
       <th>
         Opciones
       </th>
@@ -47,6 +53,7 @@
       <td>{{ data.general_info.infoCliente.NOMBRE }}</td>
       <td>{{ data.general_info.infoCliente.PROPIETARIO }}</td>
       <td>{{ data.general_info.fechaDeCaptura }}</td>
+      <td>{{ data.surveyTaker }}</td>
       <td><i nz-icon nzType="file-pdf" style="font-size: 25px; color: rgba(255, 0, 0, 0.747);cursor: pointer;" nzTheme="outline" (click)="getPDF(i)"></i></td>
     </tr>
   </tbody>
@@ -97,6 +104,16 @@
       <button nz-button nzSize="small" nzType="primary" (click)="searchFechaCaptura()"
         class="search-button">Search</button>
       <button nz-button nzSize="small" (click)="resetFechaCaptura()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<nz-dropdown-menu #menuRealizadoPor="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="searchRealizadoPor()"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="resetRealizadoPor()">Reset</button>
     </div>
   </div>
 </nz-dropdown-menu>

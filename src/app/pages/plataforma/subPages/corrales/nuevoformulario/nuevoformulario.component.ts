@@ -547,12 +547,14 @@ export class NuevoformularioComponent implements OnInit {
 
   //Función que envía las respuestas del formulario de CACN
   async sendCACN() {
+    let userName = sessionStorage.getItem('comiteUserName');
     this.isUploading = true;
     let data = {
       form_type: 'cacn',
       folio: this.generalInfoForm.getRawValue()['folio'],
       general_info: this.generalInfoForm.value,
-      form: this.answersFormCACN.value
+      form: this.answersFormCACN.value,
+      surveyTaker: userName
     }
     try {
       let response: any = await this._mongodb.uploadForm(data);
@@ -580,12 +582,14 @@ export class NuevoformularioComponent implements OnInit {
   }
 
   async sendCE() {
+    let userName = sessionStorage.getItem('comiteUserName');
     this.isUploading = true;
     let data = {
       form_type: 'ce',
       folio: this.generalInfoForm.getRawValue()['folio'],
       general_info: this.generalInfoForm.value,
-      form: this.answersFormCE.value
+      form: this.answersFormCE.value,
+      surveyTaker: userName
     }
     try {
       let response: any = await this._mongodb.uploadForm(data);
@@ -612,12 +616,14 @@ export class NuevoformularioComponent implements OnInit {
     this.isUploading = false;
   }
   async sendCEA() {
+    let userName = sessionStorage.getItem('comiteUserName');
     this.isUploading = true;
     let data = {
       form_type: 'cea',
       folio: this.generalInfoForm.getRawValue()['folio'],
       general_info: this.generalInfoForm.value,
-      form: this.answersFormCEA.value
+      form: this.answersFormCEA.value,
+      surveyTaker: userName
     }
     try {
       let response: any = await this._mongodb.uploadForm(data);

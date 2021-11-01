@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     let result:any = await this._mongodb.authenticateUser(userCredentials);
     if ( result.authenticated == true) {
       sessionStorage.setItem('comiteToken',result.token);
+      sessionStorage.setItem('comiteUserName',result.userName);
       await this.router.navigate(['/plataforma']);
       this.isLoading = false;
     }

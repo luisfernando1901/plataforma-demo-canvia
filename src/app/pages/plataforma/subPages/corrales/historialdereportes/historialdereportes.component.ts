@@ -16,6 +16,7 @@ export class HistorialdereportesComponent implements OnInit {
   visibleNombreCorral = false;
   visiblePropietario = false;
   visibleFechaCaptura = false;
+  visibleRealizadoPor = false;
   listOfData = [
     {
       folio: '-',
@@ -28,6 +29,7 @@ export class HistorialdereportesComponent implements OnInit {
           PROPIETARIO: '-',
         }
       },
+      surveyTaker:'-'
     }
   ];
   listOfDisplayData = [...this.listOfData];
@@ -91,6 +93,18 @@ export class HistorialdereportesComponent implements OnInit {
   searchFechaCaptura(): void {
     this.visibleFechaCaptura = false;
     this.listOfDisplayData = this.listOfData.filter((item) => item.general_info.fechaDeCaptura.indexOf(this.searchValue) !== -1);
+    console.log(this.listOfDisplayData);
+  }
+
+  //Realizado por
+  resetRealizadoPor(): void {
+    this.searchValue = '';
+    this.searchRealizadoPor();
+  }
+
+  searchRealizadoPor(): void {
+    this.visibleRealizadoPor = false;
+    this.listOfDisplayData = this.listOfData.filter((item) => item.surveyTaker.indexOf(this.searchValue) !== -1);
     console.log(this.listOfDisplayData);
   }
 

@@ -64,4 +64,11 @@ export class ListaDeColaboradoresComponent implements OnInit {
     this.tableloadingIndicator = false;
     this.reset();
   }
+
+  async deleteColaborator(userdata:any) {
+    console.log(userdata);
+    let result:any = await this._mongodb.deleteColaborator(userdata);
+    console.log(result);
+    window.location.reload();
+  }
 }

@@ -7,6 +7,7 @@ import { InicioComponent } from './subPages/inicio/inicio.component';
 import { SidebarMenuComponent } from './subPages/sidebar-menu/sidebar-menu.component';
 //Guards
 import { AuthGuard } from 'src/app/services/auth/auth.guard';
+import { ConfiguracionComponent } from './subPages/configuracion/configuracion/configuracion.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'inicio' },
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
       { path: 'corrales/nuevoformulario', component: NuevoformularioComponent,canActivate:[AuthGuard] },
       { path: 'corrales/historialdereportes', component: HistorialdereportesComponent,canActivate:[AuthGuard] },
-      { path: 'listadecolaboradores', component: ListaDeColaboradoresComponent,canActivate:[AuthGuard] }
+      { path: 'listadecolaboradores', component: ListaDeColaboradoresComponent,canActivate:[AuthGuard] },
+      { path: 'configuracion', component: ConfiguracionComponent,canActivate:[AuthGuard] }
     ]
   },
 ];

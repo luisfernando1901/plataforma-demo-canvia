@@ -1,6 +1,6 @@
 <div class="grid">
     <div class="col-12 md:col-6 lg:col-3">
-        <div class="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+        <div class="CACNface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Formulario totales</span>
@@ -8,7 +8,7 @@
                     <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
-                    <i class="pi pi-comment text-purple-500 text-xl"></i>
+                    <i class="pi pi-inbox text-purple-500 text-xl"></i>
                 </div>
             </div>
             <span class="text-500">Actualizado: </span>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-        <div class="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+        <div class="CACNface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Formularios CACN</span>
@@ -24,7 +24,7 @@
                     <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
-                    <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                    <i class="pi pi-inbox text-blue-500 text-xl"></i>
                 </div>
             </div>
             <span class="text-500">Actualizado: </span>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-        <div class="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+        <div class="CACNface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Formularios CE</span>
@@ -40,7 +40,7 @@
                     <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width:2.5rem;height:2.5rem">
-                    <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                    <i class="pi pi-inbox text-orange-500 text-xl"></i>
                 </div>
             </div>
             <span class="text-500">Actualizado: </span>
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-        <div class="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+        <div class="CACNface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Formulario CEA</span>
@@ -64,5 +64,24 @@
         </div>
     </div>
 </div>
-<h2 class="mt-3">Excel de tendencias</h2>
+<h2 class="mt-3">Información de tendencias</h2>
 <p-button label="Descargar" class="m-3" icon="pi pi-book" (click)="generateExcelTendencias()"></p-button>
+<h2 class="mt-3">Gráfica de tendencias</h2>
+<!--Gráfica de tendencias-->
+<div class="flex flex-row py-1 flex-wrap">
+    <div class="flex flex-column w-22rem px-1 py-1">
+        <nz-select class='py-1' nzAllowClear nzPlaceHolder="Seleccione tipo de corral" (ngModelChange)="filterByCorralType()" [(ngModel)]="tipo_de_corral">
+            <nz-option nzValue="CACN" nzLabel="CACN"></nz-option>
+            <nz-option nzValue="CE" nzLabel="CE"></nz-option>
+            <nz-option nzValue="CEA" nzLabel="CEA"></nz-option>
+        </nz-select>
+        <nz-select class='py-1' nzShowSearch nzAllowClear nzPlaceHolder="Seleccione nombre de corral" [(ngModel)]="nombre_corral_elegido">
+            <nz-option *ngFor="let corral of nombres_de_corrales" [nzLabel]="corral[0]" [nzValue]="corral[0]"></nz-option>
+        </nz-select>
+        <p-button label="Visualizar" class="m-3" icon="" (click)="generateGraph()"></p-button>
+    </div>
+    <div class="px-3 py-1" style="width: 600px; height: 400px">
+        <canvas id="myChart" width="600" height="400"></canvas>
+    </div>
+</div>
+<!--Gráfica de tendencias-->

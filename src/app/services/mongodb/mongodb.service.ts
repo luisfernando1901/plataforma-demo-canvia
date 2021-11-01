@@ -10,7 +10,7 @@ export class MongodbService {
   token = '';
 
   constructor(private http: HttpClient) { }
-  
+
   // Función para obetener el directorio dependiendo de la región consultada
   async queryRegion(region: string) {
     this.getSessionToken();
@@ -63,7 +63,12 @@ export class MongodbService {
   }
   // Función para obtener la información de tendencias
   async getInfoExcelTendencias() {
-    let result:any = await this.http.get(`${environment.base_url}/obtenerInfoExcelTendencias`, { headers: { 'authorization': this.token } }).toPromise();
+    let result: any = await this.http.get(`${environment.base_url}/obtenerInfoExcelTendencias`, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+  // Función para obtener la información de la gráfica de tendencias
+  async getInfoGraphTendencias() {
+    let result: any = await this.http.get(`${environment.base_url}/obtenerInfoGraphTendencias`, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
   // Función para verificar validez del token
@@ -79,5 +84,26 @@ export class MongodbService {
       this.token = token;
     }
     else this.token = '';
+  }
+
+  //Función para crear un nuevo usuario
+  async createUser(userData: object) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/createNewUser`, userData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
+  //Función para crear un nuevo usuario
+  async deleteUser(userData: object) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/createNewUser`, userData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
+  //Función para eliminar un colaborador
+  async deleteColaborator(userData: string) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/deleteColaborator`, userData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
   }
 }

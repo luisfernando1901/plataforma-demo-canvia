@@ -13,6 +13,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 //PRIMENG modules
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
@@ -24,6 +25,7 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {PasswordModule} from 'primeng/password';
 
 //Components
 import { IconsProviderModule } from '../..//icons-provider.module';
@@ -33,6 +35,7 @@ import { HistorialdereportesComponent } from './subPages/corrales/historialderep
 import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de-colaboradores/lista-de-colaboradores.component';
+import { ConfiguracionComponent } from './subPages/configuracion/configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de
     InicioComponent,
     NuevoformularioComponent,
     HistorialdereportesComponent,
-    ListaDeColaboradoresComponent
+    ListaDeColaboradoresComponent,
+    ConfiguracionComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +66,9 @@ import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de
     NzTableModule,
     NzDropDownModule,
     NzButtonModule,
-    NzIconModule
+    NzIconModule,
+    PasswordModule,
+    NzSelectModule
   ],
   providers:[
     MongodbService,
