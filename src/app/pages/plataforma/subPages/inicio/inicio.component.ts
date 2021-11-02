@@ -22,39 +22,15 @@ export class InicioComponent implements OnInit {
   tipo_de_corral = null;
   nombres_de_corrales = [];
   nombre_corral_elegido = null;
+  //Arreglo de colores para la gráfica
+  colores_de_porcentajes:string[] = [];
   chartJsonData = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
     datasets: [{
       label: '% calificación',
       data: [0,0,0,0,0,0,0,0,0,0,0,0],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      backgroundColor: this.colores_de_porcentajes,
+      borderColor: this.colores_de_porcentajes,
       borderWidth: 1
     }]
   };
@@ -65,13 +41,15 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Iniciamos cargando la gráfica
     this.myChart = new Chart('myChart', {
       type: 'bar',
       data: this.chartJsonData,
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            max:100
           }
         }
       }
@@ -127,13 +105,32 @@ export class InicioComponent implements OnInit {
   //Función para actualizar gráfica de tendencias
   async generateGraph(){
     let prueba = '15.27%';
+    this.colores_de_porcentajes = [];
     let iterator:string[] = [];
     console.log(parseFloat(prueba.split('%')[0]));
     for await ( iterator of this.nombres_de_corrales) {
       if (iterator[0] == this.nombre_corral_elegido){
         let data = [iterator[1] == '-'? 0:parseFloat(iterator[1].split('%')[0]), iterator[2] == '-'? 0:parseFloat(iterator[2].split('%')[0]), iterator[3] == '-'? 0:parseFloat(iterator[3].split('%')[0]), iterator[4] == '-'? 0:parseFloat(iterator[4].split('%')[0]), iterator[5] == '-'? 0:parseFloat(iterator[5].split('%')[0]), iterator[6] == '-'? 0:parseFloat(iterator[6].split('%')[0]), iterator[7] == '-'? 0:parseFloat(iterator[7].split('%')[0]), iterator[8] == '-'? 0:parseFloat(iterator[8].split('%')[0]), iterator[9] == '-'? 0:parseFloat(iterator[9].split('%')[0]), iterator[10] == '-'? 0:parseFloat(iterator[10].split('%')[0]), iterator[11] == '-'? 0:parseFloat(iterator[11].split('%')[0]),iterator[12] == '-'? 0:parseFloat(iterator[12].split('%')[0])];
         console.log(data);
+        //Definimos los colores de acuerdo al porcentaje
+        for (let index = 0; index < data.length; index++) {
+          const element = data[index];
+          if(element >= 0 && element <= 59){
+            this.colores_de_porcentajes.push('rgba(255, 66, 71, 1)');
+          }
+          if(element > 59 && element <= 74){
+            this.colores_de_porcentajes.push('rgba(255, 131, 71,1)');
+          }
+          if(element > 74 && element <= 99){
+            this.colores_de_porcentajes.push('rgba(255, 203, 71,1)');
+          }
+          if(element > 99 && element <= 100){
+            this.colores_de_porcentajes.push('rgba(60, 179, 113, 1)');
+          }
+        }
         this.chartJsonData.datasets[0].data = data;
+        this.chartJsonData.datasets[0].backgroundColor = this.colores_de_porcentajes;
+        this.chartJsonData.datasets[0].borderColor = this.colores_de_porcentajes;
         this.myChart.update();
       } 
     }

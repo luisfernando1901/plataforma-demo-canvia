@@ -7,12 +7,13 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
   styleUrls: ['./lista-de-colaboradores.component.css']
 })
 export class ListaDeColaboradoresComponent implements OnInit {
+  admin = false;
   tableloadingIndicator = true;
-  colaborators= [
+  colaborators = [
     {
-      nombre:'-',
-      email:'-',
-      rol:'-'
+      nombre: '-',
+      email: '-',
+      rol: '-'
     }
   ];
   searchValue = '';
@@ -50,24 +51,24 @@ export class ListaDeColaboradoresComponent implements OnInit {
     this.visible = false;
     this.listOfDisplayData = this.colaborators.filter((item) => item.nombre.indexOf(this.searchValue) !== -1);
   }
-  constructor(private _mongodb:MongodbService) {
+  constructor(private _mongodb: MongodbService) {
     this.getColaboratorsList();
   }
 
   ngOnInit(): void {
-
+    this.admin = sessionStorage.getItem('admin') == 'true' ? true : false;
   }
 
   async getColaboratorsList() {
-    let result:any = await this._mongodb.getColaboratorsList();
+    let result: any = await this._mongodb.getColaboratorsList();
     this.colaborators = result.usersList;
     this.tableloadingIndicator = false;
     this.reset();
   }
 
-  async deleteColaborator(userdata:any) {
+  async deleteColaborator(userdata: any) {
     console.log(userdata);
-    let result:any = await this._mongodb.deleteColaborator(userdata);
+    let result: any = await this._mongodb.deleteColaborator(userdata);
     console.log(result);
     window.location.reload();
   }

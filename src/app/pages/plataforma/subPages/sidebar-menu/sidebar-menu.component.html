@@ -49,7 +49,7 @@
           </li>
         </ul>
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item [nzDisabled]="!admin">
         <i nz-icon nzType="setting"></i>
         <span><a [routerLink]="['configuracion']">Configuración</a></span>
       </li>

@@ -8,16 +8,19 @@ import { Router } from '@angular/router';
 })
 export class SidebarMenuComponent implements OnInit {
   isCollapsed = false;
-
+  admin = false;
   constructor(private router:Router) { }
 
   ngOnInit(): void {
+    this.admin = sessionStorage.getItem('admin') == 'true' ? true : false;
+    console.log(this.admin);
   }
 
   // Función para el cierre de sesión
   logout(){
     sessionStorage.removeItem('comiteToken');
     sessionStorage.removeItem('comiteUserName');
+    sessionStorage.removeItem('admin');
     this.router.navigate(['/login']);
   }
 

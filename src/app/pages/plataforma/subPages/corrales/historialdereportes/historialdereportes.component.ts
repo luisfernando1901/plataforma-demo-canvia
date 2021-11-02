@@ -129,8 +129,7 @@ export class HistorialdereportesComponent implements OnInit {
     console.log(this.templateFormularios);
   }
 
-  getPDF(i:number) {
-    let formAnswers = this.listOfDisplayData[i];
+  getPDF(formAnswers:any) {
     let type = formAnswers.general_info.tipoDeCorral;
     console.log(formAnswers);
     this.pdfGenerator.generatePdf(formAnswers,this.templateFormularios,type);
