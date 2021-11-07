@@ -3,6 +3,7 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import * as XLSX from 'xlsx';
 //Importamos Chartjs
 import Chart from 'chart.js/auto';
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -18,10 +19,13 @@ export class InicioComponent implements OnInit {
   total_number_of_forms = 0;
   //Variable para indicar loading
   isLoading = true;
+  isLoadingGraphdata = false;
   //Variables para la gráfica de tendencias
-  tipo_de_corral = null;
+  graphInfo = this.fb.group({
+    tipo_de_corral:null,
+    nombre_de_corral:null
+  });
   nombres_de_corrales = [];
-  nombre_corral_elegido = null;
   //Arreglo de colores para la gráfica
   colores_de_porcentajes:string[] = [];
   chartJsonData = {
@@ -36,7 +40,7 @@ export class InicioComponent implements OnInit {
   };
   myChart:any;
   
-  constructor(private _mongodb:MongodbService) {
+  constructor(private _mongodb:MongodbService, private fb:FormBuilder) {
     this.getNumberOfForms();
   }
 
@@ -85,54 +89,44 @@ export class InicioComponent implements OnInit {
   }
   //Función para generar gráfica de tendencias dependiendo de la zona
   async filterByCorralType(){
-    console.log(this.tipo_de_corral);
-    let excelData = await this._mongodb.getInfoGraphTendencias();
-    let ws_data_cacn = excelData.ws_data_cacn;
-    let ws_data_ce = excelData.ws_data_ce;
-    let ws_data_cea = excelData.ws_data_cea;
-    if(this.tipo_de_corral == 'CACN'){
-      this.nombres_de_corrales = ws_data_cacn;
-    }
-    if(this.tipo_de_corral == 'CE'){
-      this.nombres_de_corrales = ws_data_ce;
-    }
-    if(this.tipo_de_corral == 'CEA'){
-      this.nombres_de_corrales = ws_data_cea;
-    }
-    console.log(this.nombres_de_corrales);
+    this.isLoadingGraphdata = true;
+    this.nombres_de_corrales = [];
+    let corralNames:any = await this._mongodb.getCorralNamesByCorralType(this.graphInfo.value.tipo_de_corral);
+    this.nombres_de_corrales = corralNames.corrales;
+    this.isLoadingGraphdata = false;
   }
 
   //Función para actualizar gráfica de tendencias
   async generateGraph(){
-    let prueba = '15.27%';
+    this.isLoadingGraphdata = true;
+    //Obtenemos los valores a consultar
+    let corralName = this.graphInfo.value.nombre_de_corral;
+    let corralType = this.graphInfo.value.tipo_de_corral;
     this.colores_de_porcentajes = [];
-    let iterator:string[] = [];
-    console.log(parseFloat(prueba.split('%')[0]));
-    for await ( iterator of this.nombres_de_corrales) {
-      if (iterator[0] == this.nombre_corral_elegido){
-        let data = [iterator[1] == '-'? 0:parseFloat(iterator[1].split('%')[0]), iterator[2] == '-'? 0:parseFloat(iterator[2].split('%')[0]), iterator[3] == '-'? 0:parseFloat(iterator[3].split('%')[0]), iterator[4] == '-'? 0:parseFloat(iterator[4].split('%')[0]), iterator[5] == '-'? 0:parseFloat(iterator[5].split('%')[0]), iterator[6] == '-'? 0:parseFloat(iterator[6].split('%')[0]), iterator[7] == '-'? 0:parseFloat(iterator[7].split('%')[0]), iterator[8] == '-'? 0:parseFloat(iterator[8].split('%')[0]), iterator[9] == '-'? 0:parseFloat(iterator[9].split('%')[0]), iterator[10] == '-'? 0:parseFloat(iterator[10].split('%')[0]), iterator[11] == '-'? 0:parseFloat(iterator[11].split('%')[0]),iterator[12] == '-'? 0:parseFloat(iterator[12].split('%')[0])];
-        console.log(data);
-        //Definimos los colores de acuerdo al porcentaje
-        for (let index = 0; index < data.length; index++) {
-          const element = data[index];
-          if(element >= 0 && element <= 59){
-            this.colores_de_porcentajes.push('rgba(255, 66, 71, 1)');
-          }
-          if(element > 59 && element <= 74){
-            this.colores_de_porcentajes.push('rgba(255, 131, 71,1)');
-          }
-          if(element > 74 && element <= 99){
-            this.colores_de_porcentajes.push('rgba(255, 203, 71,1)');
-          }
-          if(element > 99 && element <= 100){
-            this.colores_de_porcentajes.push('rgba(60, 179, 113, 1)');
-          }
-        }
-        this.chartJsonData.datasets[0].data = data;
-        this.chartJsonData.datasets[0].backgroundColor = this.colores_de_porcentajes;
-        this.chartJsonData.datasets[0].borderColor = this.colores_de_porcentajes;
-        this.myChart.update();
-      } 
+    let result = await this._mongodb.getInfoGraphTendencias(corralType, corralName);
+    this.isLoadingGraphdata = false;
+    let iterator = result.data;
+    //A partir de aqui debo agarrar los datos de la gráfica
+    let data = [iterator[1] == '-'? 0:parseFloat(iterator[1].split('%')[0]), iterator[2] == '-'? 0:parseFloat(iterator[2].split('%')[0]), iterator[3] == '-'? 0:parseFloat(iterator[3].split('%')[0]), iterator[4] == '-'? 0:parseFloat(iterator[4].split('%')[0]), iterator[5] == '-'? 0:parseFloat(iterator[5].split('%')[0]), iterator[6] == '-'? 0:parseFloat(iterator[6].split('%')[0]), iterator[7] == '-'? 0:parseFloat(iterator[7].split('%')[0]), iterator[8] == '-'? 0:parseFloat(iterator[8].split('%')[0]), iterator[9] == '-'? 0:parseFloat(iterator[9].split('%')[0]), iterator[10] == '-'? 0:parseFloat(iterator[10].split('%')[0]), iterator[11] == '-'? 0:parseFloat(iterator[11].split('%')[0]),iterator[12] == '-'? 0:parseFloat(iterator[12].split('%')[0])];
+    //Definimos los colores de acuerdo al porcentaje
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      if(element >= 0 && element <= 59){
+        this.colores_de_porcentajes.push('rgba(255, 66, 71, 1)');
+      }
+      if(element > 59 && element <= 74){
+        this.colores_de_porcentajes.push('rgba(255, 131, 71,1)');
+      }
+      if(element > 74 && element <= 99){
+        this.colores_de_porcentajes.push('rgba(255, 203, 71,1)');
+      }
+      if(element > 99 && element <= 100){
+        this.colores_de_porcentajes.push('rgba(60, 179, 113, 1)');
+      }
     }
+    this.chartJsonData.datasets[0].data = data;
+    this.chartJsonData.datasets[0].backgroundColor = this.colores_de_porcentajes;
+    this.chartJsonData.datasets[0].borderColor = this.colores_de_porcentajes;
+    this.myChart.update();
   }
 }

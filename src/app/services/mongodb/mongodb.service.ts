@@ -63,12 +63,20 @@ export class MongodbService {
   }
   // Función para obtener la información de tendencias
   async getInfoExcelTendencias() {
+    this.getSessionToken();
     let result: any = await this.http.get(`${environment.base_url}/obtenerInfoExcelTendencias`, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+  //Función para obtener los nombres de corrales por tipo de corral
+  async getCorralNamesByCorralType(corralType: string) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/getCorralsNamesByCorralType`,{corralType:corralType} ,{ headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
   // Función para obtener la información de la gráfica de tendencias
-  async getInfoGraphTendencias() {
-    let result: any = await this.http.get(`${environment.base_url}/obtenerInfoGraphTendencias`, { headers: { 'authorization': this.token } }).toPromise();
+  async getInfoGraphTendencias(corralType:string, corralName:string) {
+    this.getSessionToken();
+    let result: any = await this.http.post(`${environment.base_url}/obtenerInfoGraphTendencias`,{corralType:corralType, corralName:corralName} ,{ headers: { 'authorization': this.token } }).toPromise();
     return result
   }
   // Función para verificar validez del token
