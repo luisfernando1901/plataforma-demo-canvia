@@ -79,6 +79,13 @@ export class MongodbService {
     let result: any = await this.http.post(`${environment.base_url}/obtenerInfoGraphTendencias`,{corralType:corralType, corralName:corralName} ,{ headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+  // Función para obtener la información de la gráfica de porcentaje de incumplimiento por tipo de corral
+  async getInfoGraphPorcentajeIncumplimiento() {
+  this.getSessionToken();
+  let result: any = await this.http.get(`${environment.base_url}/obtenerInfoGraphPorcentajeIncumplimiento`, { headers: { 'authorization': this.token } }).toPromise();
+  return result
+  }
+
   // Función para verificar validez del token
   async verifyAndReniewToken() {
     this.getSessionToken();

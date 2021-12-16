@@ -34,18 +34,42 @@ export class InicioComponent implements OnInit {
       label: '% calificación',
       data: [0,0,0,0,0,0,0,0,0,0,0,0],
       backgroundColor: this.colores_de_porcentajes,
-      borderColor: this.colores_de_porcentajes,
-      borderWidth: 1
+      borderColor: this.colores_de_porcentajes
     }]
   };
+  //Data de la gráfica de incumplimiento
+  incumplimientoChartJsonData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    datasets:[
+      {
+        label: 'CACN(%)',
+        data: [0,0,0,0,0,0,0,0,0,0,0,0],
+        borderColor: 'rgba(255, 9, 132, 0.2)',
+        backgroundColor: 'rgba(255, 9, 132, 0.2)',
+      },
+      {
+        label: 'CE(%)',
+        data: [0,0,0,0,0,0,0,0,0,0,0,0],
+        borderColor: 'rgba(255, 99, 112, 0.2)',
+        backgroundColor: 'rgba(255, 99, 112, 0.2)',
+      },
+      {
+        label: 'CEA(%)',
+        data:[0,0,0,0,0,0,0,0,0,0,0,0],
+        borderColor: 'rgba(255, 99, 32, 0.2)',
+        backgroundColor: 'rgba(255, 99, 32, 0.2)',
+      }
+    ]
+  }
   myChart:any;
+  myChart2:any;
   
   constructor(private _mongodb:MongodbService, private fb:FormBuilder) {
     this.getNumberOfForms();
   }
 
   ngOnInit(): void {
-    //Iniciamos cargando la gráfica
+    //Iniciamos cargando la gráfica de porcentajes de cumplimiento
     this.myChart = new Chart('myChart', {
       type: 'bar',
       data: this.chartJsonData,
@@ -58,7 +82,32 @@ export class InicioComponent implements OnInit {
         }
       }
     });
-  }
+    //Iniciamos cargando la gráfica de porcentajes de incumplimiento
+    this.myChart2 = new Chart('myChart2', {
+      type: 'line',
+      data: this.incumplimientoChartJsonData,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max:100
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Porcentaje de incumplimientos'
+          }
+        }
+      }
+  });
+  //Cargamos los datos de la gráfica de porcentajes de incumplimiento
+  this.generateGraphIncumplimientos();
+}
   
   // Función para obtener la cantidad de formularios almacenados hasta el momento
   async getNumberOfForms(){
@@ -128,5 +177,17 @@ export class InicioComponent implements OnInit {
     this.chartJsonData.datasets[0].backgroundColor = this.colores_de_porcentajes;
     this.chartJsonData.datasets[0].borderColor = this.colores_de_porcentajes;
     this.myChart.update();
+  }
+
+  //Función para generar gráfica de porcentaje de incumplimientos
+  async generateGraphIncumplimientos(){
+    let percents = await this._mongodb.getInfoGraphPorcentajeIncumplimiento();
+    let cacn = percents.cacn;
+    let ce = percents.ce;
+    let cea = percents.cea;
+    this.incumplimientoChartJsonData.datasets[0].data = cacn;
+    this.incumplimientoChartJsonData.datasets[1].data = ce;
+    this.incumplimientoChartJsonData.datasets[2].data = cea;
+    this.myChart2.update();
   }
 }
