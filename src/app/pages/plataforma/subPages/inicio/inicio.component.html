@@ -89,7 +89,44 @@
         <canvas id="myChart" width="600" height="400"></canvas>
     </div>
 </div>
+<!--Gráfica de incumplimientos-->
+<h2>Gráfica de Incumplimientos</h2>
 <div class="px-3 py-1" style="width: 600px; height: 400px">
     <canvas id="myChart2" width="600" height="400"></canvas>
 </div>
-<!--Gráfica de tendencias-->
+<!--Tabla de Incumplimientos CACN-->
+<h2>Tabla de Incumplimientos CACN</h2>
+<table>
+    <tr>
+      <th>Frecuencia</th>
+      <th>Observación</th>
+    </tr>
+    <tr *ngFor="let incumplimiento of incumplimientos_cacn">
+        <td>{{incumplimiento[1]}}</td>
+        <td>{{incumplimiento[0]}}</td>
+    </tr>
+</table>
+<!--Tabla de Incumplimientos CEA-->
+<h2>Tabla de Incumplimientos CEA</h2>
+<table>
+    <tr>
+      <th>Frecuencia</th>
+      <th>Observación</th>
+    </tr>
+    <tr *ngFor="let incumplimiento of incumplimientos_cea">
+        <td>{{incumplimiento[1]}}</td>
+        <td>{{incumplimiento[0]}}</td>
+    </tr>
+</table>
+<!--Tabla de Incumplimientos CE-->
+<h2>Tabla de Incumplimientos CE</h2>
+<table>
+    <tr>
+      <th>Frecuencia</th>
+      <th>Observación</th>
+    </tr>
+    <tr *ngFor="let incumplimiento of incumplimientos_ce">
+        <td>{{incumplimiento[1]}}</td>
+        <td>{{incumplimiento[0]}}</td>
+    </tr>
+</table>

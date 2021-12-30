@@ -44,31 +44,37 @@ export class InicioComponent implements OnInit {
       {
         label: 'CACN(%)',
         data: [0,0,0,0,0,0,0,0,0,0,0,0],
-        borderColor: 'rgba(255, 9, 132, 0.2)',
-        backgroundColor: 'rgba(255, 9, 132, 0.2)',
+        borderColor: 'rgba(193,66,66, 0.8)',
+        backgroundColor: 'rgba(193,66,66, 0.8)',
       },
       {
         label: 'CE(%)',
         data: [0,0,0,0,0,0,0,0,0,0,0,0],
-        borderColor: 'rgba(255, 99, 112, 0.2)',
-        backgroundColor: 'rgba(255, 99, 112, 0.2)',
+        borderColor: 'rgba(70,191,63, 0.8)',
+        backgroundColor: 'rgba(70,191,63, 0.8)',
       },
       {
         label: 'CEA(%)',
         data:[0,0,0,0,0,0,0,0,0,0,0,0],
-        borderColor: 'rgba(255, 99, 32, 0.2)',
-        backgroundColor: 'rgba(255, 99, 32, 0.2)',
+        borderColor: 'rgba(255, 99, 32, 0.8)',
+        backgroundColor: 'rgba(255, 99, 32, 0.8)',
       }
     ]
   }
   myChart:any;
   myChart2:any;
+  //Variables para la tabla de incumplimientos
+  incumplimientos_cacn = [];
+  incumplimientos_cea = [];
+  incumplimientos_ce = [];
   
   constructor(private _mongodb:MongodbService, private fb:FormBuilder) {
     this.getNumberOfForms();
   }
 
   ngOnInit(): void {
+    //Consultamos los incumplimientos
+    this.getIncumplimientosByCorral();
     //Iniciamos cargando la gráfica de porcentajes de cumplimiento
     this.myChart = new Chart('myChart', {
       type: 'bar',
@@ -91,7 +97,7 @@ export class InicioComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max:100
+            max:50
           }
         },
         plugins: {
@@ -189,5 +195,12 @@ export class InicioComponent implements OnInit {
     this.incumplimientoChartJsonData.datasets[1].data = ce;
     this.incumplimientoChartJsonData.datasets[2].data = cea;
     this.myChart2.update();
+  }
+
+  //Función para obtener los incumplimientos por corral
+  async getIncumplimientosByCorral(){
+    this.incumplimientos_cacn = await this._mongodb.getIncumplimientosCACN();
+    this.incumplimientos_ce = await this._mongodb.getIncumplimientosCE();
+    this.incumplimientos_cea = await this._mongodb.getIncumplimientosCEA();
   }
 }

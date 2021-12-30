@@ -86,6 +86,27 @@ export class MongodbService {
   return result
   }
 
+  //Función para consultar los incumplimientos de CACN
+  async getIncumplimientosCACN() {
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/obtenerErroresFormulariosCACN`, { headers: { 'authorization': this.token } }).toPromise();
+    return result.data
+  }
+
+  //Función para consultar los incumplimientos de CE
+  async getIncumplimientosCE() {
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/obtenerErroresFormulariosCE`, { headers: { 'authorization': this.token } }).toPromise();
+    return result.data
+  }
+
+  //Función para consultar los incumplimientos de CEA
+  async getIncumplimientosCEA() {
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/obtenerErroresFormulariosCEA`, { headers: { 'authorization': this.token } }).toPromise();
+    return result.data
+  }
+
   // Función para verificar validez del token
   async verifyAndReniewToken() {
     this.getSessionToken();
