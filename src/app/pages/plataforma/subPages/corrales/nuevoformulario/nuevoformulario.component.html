@@ -1,5 +1,5 @@
 <p-toast position="top-right"></p-toast>
-<h2>Datos generales</h2>
+<p class="text-xl font-semibold">Datos generales</p>
 <form [formGroup]="generalInfoForm">
     <div class="flex flex-row flex-wrap">
         <div class="m-2">
@@ -55,7 +55,7 @@
     </div>
 </form>
 <p-divider></p-divider>
-<h2>Datos del formulario</h2>
+<p class="text-xl font-semibold">Datos del formulario</p>
 <br>
 <!-- FORMULARIO CACN-->
 <form [formGroup]="answersFormCACN" *ngIf="isCACNform">
@@ -79,9 +79,9 @@
             <input class="fillAvailable" formControlName="MVZ_RA_SUPERVISOR" type="text" pInputText>
         </div>
     </div>
-    <h2 class="flex justify-content-center mt-3" style="text-align: center;">CRITERIOS DE SUPERVISION A CUMPLIR
+    <p class="text-lg font-semibold" style="text-align: center;">CRITERIOS DE SUPERVISION A CUMPLIR
         ACORDADOS POR LA SECRETARIA DE AGRICULTURA Y GANADERIA DEL GOBIERNO DE SINALOA PARA CORRALES DE ACOPIO DE
-        CONSUMO NACIONAL (CACN)</h2>
+        CONSUMO NACIONAL (CACN)</p>
     <!-- PRIMERA SECCIÓN-->
     <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
     <div formArrayName="CACN_answersSection1">
@@ -276,8 +276,8 @@
         </div>
 
     </div>
-    <h2 class="flex justify-content-center mt-3" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
-        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA (CE)</h2>
+    <p class="text-lg font-semibold" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
+        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA (CE)</p>
     <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
     <!-- PRIMERA SECCIÓN-->
     <div formArrayName="CE_answersSection1">
@@ -503,8 +503,8 @@
                 type="text" pInputText>
         </div>
     </div>
-    <h2 class="flex justify-content-center mt-3" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
-        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA APROBADOS (CEA)</h2>
+    <p class="text-lg font-semibold" style="text-align: center;">EVALUACION DEL CUMPLIMIENTO DE LOS
+        REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA APROBADOS (CEA)</p>
     <h5>(Leyenda: 0 = No cumple, 1 = Cumple )</h5>
     <!-- PRIMERA SECCIÓN-->
     <div formArrayName="CEA_answersSection1">
