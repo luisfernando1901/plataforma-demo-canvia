@@ -25,7 +25,16 @@ export class InicioComponent implements OnInit {
     tipo_de_corral:null,
     nombre_de_corral:null
   });
+  //Formulario de la sección de "Información Detallada"
+  detailed_info_form = this.fb.group({
+    tipo_de_corral:null,
+    nombre_de_corral:null,
+    ano:null,
+  });
   nombres_de_corrales = [];
+  nombres_de_corrales_detailed_info = [];
+  //Variables para enlistar los datos devueltos por la búsqueda de incumplimientos por corral
+  incumplimientos_detailed_info = [];
   //Arreglo de colores para la gráfica
   colores_de_porcentajes:string[] = [];
   chartJsonData = {
@@ -63,18 +72,12 @@ export class InicioComponent implements OnInit {
   }
   myChart:any;
   myChart2:any;
-  //Variables para la tabla de incumplimientos
-  incumplimientos_cacn = [];
-  incumplimientos_cea = [];
-  incumplimientos_ce = [];
   
   constructor(private _mongodb:MongodbService, private fb:FormBuilder) {
     this.getNumberOfForms();
   }
 
   ngOnInit(): void {
-    //Consultamos los incumplimientos
-    this.getIncumplimientosByCorral();
     //Iniciamos cargando la gráfica de porcentajes de cumplimiento
     this.myChart = new Chart('myChart', {
       type: 'bar',
@@ -151,6 +154,15 @@ export class InicioComponent implements OnInit {
     this.isLoadingGraphdata = false;
   }
 
+   //Función para obtener los nombres de los corrales por tipo de corral
+   async filterByCorralTypeDetailedInfo(){
+    this.isLoadingGraphdata = true;
+    this.nombres_de_corrales_detailed_info = [];
+    let corralNames:any = await this._mongodb.getCorralNamesByCorralType(this.detailed_info_form.value.tipo_de_corral);
+    this.nombres_de_corrales_detailed_info = corralNames.corrales;
+    this.isLoadingGraphdata = false;
+  }
+
   //Función para actualizar gráfica de tendencias
   async generateGraph(){
     this.isLoadingGraphdata = true;
@@ -197,10 +209,23 @@ export class InicioComponent implements OnInit {
     this.myChart2.update();
   }
 
-  //Función para obtener los incumplimientos por corral
-  async getIncumplimientosByCorral(){
-    this.incumplimientos_cacn = await this._mongodb.getIncumplimientosCACN();
-    this.incumplimientos_ce = await this._mongodb.getIncumplimientosCE();
-    this.incumplimientos_cea = await this._mongodb.getIncumplimientosCEA();
+  //Función para buscar información de incumplimientos por corral
+  async getIncumplimientosByCorralDetailedInfo(){
+    this.isLoadingGraphdata = true;
+    this.incumplimientos_detailed_info = [];
+    switch (this.detailed_info_form.value.tipo_de_corral) {
+      case 'CACN':
+        this.incumplimientos_detailed_info = await this._mongodb.getIncumplimientosDetailedCACN(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.ano);
+        break;
+      case 'CE':
+        this.incumplimientos_detailed_info = await this._mongodb.getIncumplimientosDetailedCE(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.ano);
+        break;
+      case 'CEA':
+        this.incumplimientos_detailed_info = await this._mongodb.getIncumplimientosDetailedCEA(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.ano);
+        break;
+      default:
+        break;
+    }
+    this.isLoadingGraphdata = false;
   }
 }

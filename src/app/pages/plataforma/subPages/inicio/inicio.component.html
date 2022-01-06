@@ -1,5 +1,6 @@
 <div class="flex flex-col">
-    <p class="text-2xl font-semibold mb-1">Dashboard General</p>
+    <p class="text-2xl font-semibold mb-1">Dashboard</p>
+    <p class="text-xl font-semibold mb-1">Información General</p>
     <hr class="mb-3">
     <!--Sección de tarjetas-->
     <div class="flex flex-row flex-wrap justify-around py-6">
@@ -105,38 +106,48 @@
     <div class="px-3 py-1" style="width: 600px; height: 400px">
         <canvas id="myChart2" width="600" height="400"></canvas>
     </div>
+
+    <!--Esta sección es la de información detallada-->
+    <p class="text-xl font-semibold mb-1">Información Detallada</p>
+    <hr class="mb-3">
+    <form [formGroup]="detailed_info_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">
+        <div class="flex flex-row flex-wrap space-x-3">
+        
+            <div class="flex flex-row space-x-3 items-center py-1">
+                <p>Tipo de corral:</p>
+                <select (change)="filterByCorralTypeDetailedInfo()" formControlName="tipo_de_corral" class="border-2 rounded-md px-3 py-1">
+                    <option value="CACN">CACN</option>
+                    <option value="CE">CE</option>
+                    <option value="CEA">CEA</option>
+                </select>
+            </div>
+            <div class="flex flex-row space-x-3 items-center py-1">
+                <p>Nombre de corral:</p>
+                <select formControlName="nombre_de_corral" class="border-2 rounded-md px-3 py-1">
+                    <option *ngFor="let name of nombres_de_corrales_detailed_info" [value]="name">{{name}}</option>
+                </select>
+            </div>
+            <div class="flex flex-row space-x-3 items-center py-1">
+                <p>Año:</p>
+                <select formControlName="ano" class="border-2 rounded-md px-3 py-1">
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                </select>
+            </div>
+            <div class="flex flex-row items-center">
+                <button type="submit" class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Buscar</button>
+            </div>
+    </div>
+    </form>
+    
     <!--Tabla de Incumplimientos CACN-->
-    <p class="text-lg font-medium mb-3">Tabla de Incumplimientos CACN</p>
+    <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
     <table>
         <tr>
             <th>Frecuencia</th>
             <th>Observación</th>
         </tr>
-        <tr *ngFor="let incumplimiento of incumplimientos_cacn">
-            <td>{{incumplimiento[1]}}</td>
-            <td>{{incumplimiento[0]}}</td>
-        </tr>
-    </table>
-    <!--Tabla de Incumplimientos CEA-->
-    <p class="text-lg font-medium mb-3">Tabla de Incumplimientos CEA</p>
-    <table>
-        <tr>
-            <th>Frecuencia</th>
-            <th>Observación</th>
-        </tr>
-        <tr *ngFor="let incumplimiento of incumplimientos_cea">
-            <td>{{incumplimiento[1]}}</td>
-            <td>{{incumplimiento[0]}}</td>
-        </tr>
-    </table>
-    <!--Tabla de Incumplimientos CE-->
-    <p class="text-lg font-medium mb-3">Tabla de Incumplimientos CE</p>
-    <table>
-        <tr>
-            <th>Frecuencia</th>
-            <th>Observación</th>
-        </tr>
-        <tr *ngFor="let incumplimiento of incumplimientos_ce">
+        <tr *ngFor="let incumplimiento of incumplimientos_detailed_info">
             <td>{{incumplimiento[1]}}</td>
             <td>{{incumplimiento[0]}}</td>
         </tr>
