@@ -1,155 +1,218 @@
-<div class="flex flex-col">
+<div class="flex flex-col space-y-6">
     <p class="text-2xl font-semibold mb-1">Dashboard</p>
-    <p class="text-xl font-semibold mb-1">Información General</p>
-    <hr class="mb-3">
-    <!--Sección de tarjetas-->
-    <div class="flex flex-row flex-wrap justify-around py-6">
-        <div class="col-12 md:col-6 lg:col-3">
-            <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
-                <div class="flex justify-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Formulario totales</span>
-                        <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{total_number_of_forms}}</div>
-                        <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+    <div class="flex flex-col space-y-3 w-full">
+        <p class="text-xl font-semibold mb-1">Información General</p>
+        <hr class="mb-3">
+        <!--Sección de tarjetas-->
+        <div class="flex flex-row flex-wrap justify-around py-6">
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Formulario totales</span>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{total_number_of_forms}}</div>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-purple-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-inbox text-purple-500 text-xl"></i>
+                        </div>
                     </div>
-                    <div class="flex justify-center items-center bg-purple-100 rounded-xl"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-inbox text-purple-500 text-xl"></i>
-                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
                 </div>
-                <span class="text-500">Actualizado: </span>
-                <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Formularios CACN</span>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cacn_number}}</div>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-blue-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-inbox text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Formularios CE</span>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{ce_number}}</div>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-red-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-inbox text-orange-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Formulario CEA</span>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cea_number}}</div>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-green-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                </div>
             </div>
         </div>
-        <div class="col-12 md:col-6 lg:col-3">
-            <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
-                <div class="flex justify-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Formularios CACN</span>
-                        <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cacn_number}}</div>
-                        <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
-                    </div>
-                    <div class="flex justify-center items-center bg-blue-100 rounded-xl"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-inbox text-blue-500 text-xl"></i>
-                    </div>
+        <!--Descargar excel de tendencias-->
+        <form [formGroup]="download_excel_form">
+            <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+                <p class="text-lg font-medium mb-3">Información de tendencias</p>
+                <div class="flex flex-row items-center space-x-3">
+                    <p>Seleccione el año que desea descargar:</p>
+                    <select formControlName="year" class="border-2 rounded-md px-3 py-1">
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
                 </div>
-                <span class="text-500">Actualizado: </span>
-                <span class="text-green-500 font-medium">{{actualizationHour}}</span>
-            </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3">
-            <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
-                <div class="flex justify-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Formularios CE</span>
-                        <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{ce_number}}</div>
-                        <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
-                    </div>
-                    <div class="flex justify-center items-center bg-red-100 rounded-xl"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-inbox text-orange-500 text-xl"></i>
-                    </div>
+                <div>
+                    <button (click)="generateExcelTendencias()"
+                        class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Descargar</button>
                 </div>
-                <span class="text-500">Actualizado: </span>
-                <span class="text-green-500 font-medium">{{actualizationHour}}</span>
-            </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3">
-            <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
-                <div class="flex justify-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Formulario CEA</span>
-                        <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cea_number}}</div>
-                        <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
-                    </div>
-                    <div class="flex justify-center items-center bg-green-100 rounded-xl"
-                        style="width:2.5rem;height:2.5rem">
-                        <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-500">Actualizado: </span>
-                <span class="text-green-500 font-medium">{{actualizationHour}}</span>
-            </div>
-        </div>
-    </div>
-    <p class="text-lg font-medium mb-3">Información de tendencias</p>
-    <p-button label="Descargar" class="m-3" icon="pi pi-book" (click)="generateExcelTendencias()"></p-button>
-    <div class="flex flex-col mt-3">
-        <p class="text-lg font-medium mb-3">Gráfica de tendencias</p>
-        <i class="mt-2 ml-2" nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoadingGraphdata"></i>
-    </div>
-    <!--Gráfica de tendencias-->
-    <div class="flex flex-row py-1 flex-wrap">
-        <form [formGroup]="graphInfo">
-            <div class="flex flex-column px-1 py-1">
-                <nz-select class='py-1' nzAllowClear nzPlaceHolder="Seleccione tipo de corral"
-                    (ngModelChange)="filterByCorralType()" formControlName="tipo_de_corral">
-                    <nz-option nzValue="CACN" nzLabel="CACN"></nz-option>
-                    <nz-option nzValue="CE" nzLabel="CE"></nz-option>
-                    <nz-option nzValue="CEA" nzLabel="CEA"></nz-option>
-                </nz-select>
-                <nz-select class='py-1' nzShowSearch nzAllowClear nzPlaceHolder="Seleccione nombre de corral"
-                    formControlName="nombre_de_corral">
-                    <nz-option *ngFor="let corral of nombres_de_corrales" [nzLabel]="corral" [nzValue]="corral">
-                    </nz-option>
-                </nz-select>
-                <p-button label="Visualizar" class="m-3" icon="" (click)="generateGraph()"></p-button>
             </div>
         </form>
-        <div class="px-3 py-1" style="width: 600px; height: 400px">
-            <canvas id="myChart" width="600" height="400"></canvas>
+        <!--Filtros de Búsqueda General-->
+        <form [formGroup]="general_info_form" (ngSubmit)="generateGeneralGraphs()">
+            <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+                <p class="text-lg font-semibold">Filtros de búsqueda</p>
+                <div class="flex flex-row flex-wrap space-x-3">
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Tipo de corral:</p>
+                        <select formControlName="tipo_de_corral" class="border-2 rounded-md px-3 py-1">
+                            <option value="CACN">CACN</option>
+                            <option value="CE">CE</option>
+                            <option value="CEA">CEA</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Año:</p>
+                        <select formControlName="year" class="border-2 rounded-md px-3 py-1">
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row items-center">
+                        <button type="submit" class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--Graficas de Calificaciones e Incumplimientos detallado-->
+        <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+            <p class="text-lg font-medium mb-3">Gráficas</p>
+            <div class="flex flex-row space-x-3">
+                <div class="flex h-full w-1/2" style="position: relative">
+                    <canvas id="chart_calificacion_general"></canvas>
+                </div>
+                <div class="flex h-full w-1/2" style="position: relative">
+                    <canvas id="chart_incumplimiento_general"></canvas>
+                </div>
+            </div>
         </div>
-    </div>
-    <!--Gráfica de incumplimientos-->
-    <p class="text-lg font-medium mb-3">Gráfica de Incumplimientos</p>
-    <div class="px-3 py-1" style="width: 600px; height: 400px">
-        <canvas id="myChart2" width="600" height="400"></canvas>
     </div>
 
     <!--Esta sección es la de información detallada-->
-    <p class="text-xl font-semibold mb-1">Información Detallada</p>
-    <hr class="mb-3">
-    <form [formGroup]="detailed_info_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">
-        <div class="flex flex-row flex-wrap space-x-3">
-        
-            <div class="flex flex-row space-x-3 items-center py-1">
-                <p>Tipo de corral:</p>
-                <select (change)="filterByCorralTypeDetailedInfo()" formControlName="tipo_de_corral" class="border-2 rounded-md px-3 py-1">
-                    <option value="CACN">CACN</option>
-                    <option value="CE">CE</option>
-                    <option value="CEA">CEA</option>
-                </select>
+    <div class="flex flex-col space-y-3 w-full">
+        <p class="text-xl font-semibold mb-1">Información Detallada</p>
+        <hr class="mb-3">
+        <!--Filtros de Búsqueda Detallado-->
+        <form [formGroup]="detailed_info_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">
+            <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+                <p class="text-lg font-semibold">Filtros de búsqueda</p>
+                <div class="flex flex-row flex-wrap space-x-3">
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Tipo de corral:</p>
+                        <select (change)="filterByCorralTypeDetailedInfo()" formControlName="tipo_de_corral"
+                            class="border-2 rounded-md px-3 py-1">
+                            <option value="CACN">CACN</option>
+                            <option value="CE">CE</option>
+                            <option value="CEA">CEA</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Nombre de corral:</p>
+                        <select formControlName="nombre_de_corral" class="border-2 rounded-md px-3 py-1">
+                            <option *ngFor="let name of nombres_de_corrales_detailed_info" [value]="name">{{name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Mes:</p>
+                        <select formControlName="month" class="border-2 rounded-md px-3 py-1">
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row space-x-3 items-center py-1">
+                        <p>Año:</p>
+                        <select formControlName="year" class="border-2 rounded-md px-3 py-1">
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-row items-center">
+                        <button type="submit" class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Buscar</button>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-row space-x-3 items-center py-1">
-                <p>Nombre de corral:</p>
-                <select formControlName="nombre_de_corral" class="border-2 rounded-md px-3 py-1">
-                    <option *ngFor="let name of nombres_de_corrales_detailed_info" [value]="name">{{name}}</option>
-                </select>
+        </form>
+        <!--Tabla de Incumplimientos dependiendo del tipo de corral que se elija-->
+        <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+            <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
+            <table>
+                <tr>
+                    <th>Frecuencia</th>
+                    <th>Observación</th>
+                </tr>
+                <tr *ngFor="let incumplimiento of incumplimientos_detailed_info">
+                    <td>{{incumplimiento[1]}}</td>
+                    <td>{{incumplimiento[0]}}</td>
+                </tr>
+            </table>
+            <div *ngIf="no_records" class="flex flex-row justify-center">
+                <p class="text-lg pt-3">No hay registros</p>
             </div>
-            <div class="flex flex-row space-x-3 items-center py-1">
-                <p>Año:</p>
-                <select formControlName="ano" class="border-2 rounded-md px-3 py-1">
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                </select>
+        </div>
+        <!--Graficas de Calificaciones e Incumplimientos detallado-->
+        <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+            <p class="text-lg font-medium mb-3">Gráficas</p>
+            <div class="flex flex-row space-x-3">
+                <div class="flex h-full w-1/2" style="position: relative">
+                    <canvas id="chart_calificacion_detallado"></canvas>
+                </div>
+                <div class="flex h-full w-1/2" style="position: relative">
+                    <canvas id="chart_incumplimiento_detallado"></canvas>
+                </div>
             </div>
-            <div class="flex flex-row items-center">
-                <button type="submit" class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Buscar</button>
-            </div>
+        </div>
     </div>
-    </form>
-    
-    <!--Tabla de Incumplimientos CACN-->
-    <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
-    <table>
-        <tr>
-            <th>Frecuencia</th>
-            <th>Observación</th>
-        </tr>
-        <tr *ngFor="let incumplimiento of incumplimientos_detailed_info">
-            <td>{{incumplimiento[1]}}</td>
-            <td>{{incumplimiento[0]}}</td>
-        </tr>
-    </table>
-</div>
