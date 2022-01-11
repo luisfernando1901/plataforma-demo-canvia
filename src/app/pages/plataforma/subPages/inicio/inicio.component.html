@@ -136,7 +136,7 @@
         <p class="text-xl font-semibold mb-1">Información Detallada</p>
         <hr class="mb-3">
         <!--Filtros de Búsqueda Detallado-->
-        <form [formGroup]="detailed_info_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">
+        <form [formGroup]="detailed_info_form" (ngSubmit)="generateDetailedInfoGraphs()">
             <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
                 <p class="text-lg font-semibold">Filtros de búsqueda</p>
                 <div class="flex flex-row flex-wrap space-x-3">
@@ -157,24 +157,6 @@
                         </select>
                     </div>
                     <div class="flex flex-row space-x-3 items-center py-1">
-                        <p>Mes:</p>
-                        <select formControlName="month" class="border-2 rounded-md px-3 py-1">
-                            <option selected value="Todos">Todos</option>
-                            <option value="01">Enero</option>
-                            <option value="02">Febrero</option>
-                            <option value="03">Marzo</option>
-                            <option value="04">Abril</option>
-                            <option value="05">Mayo</option>
-                            <option value="06">Junio</option>
-                            <option value="07">Julio</option>
-                            <option value="08">Agosto</option>
-                            <option value="09">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                    </div>
-                    <div class="flex flex-row space-x-3 items-center py-1">
                         <p>Año:</p>
                         <select formControlName="year" class="border-2 rounded-md px-3 py-1">
                             <option value="2022">2022</option>
@@ -187,23 +169,6 @@
                 </div>
             </div>
         </form>
-        <!--Tabla de Incumplimientos dependiendo del tipo de corral que se elija-->
-        <div *ngIf="show_incumplimiento_detallado_table" class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
-            <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
-            <table>
-                <tr>
-                    <th>Frecuencia</th>
-                    <th>Observación</th>
-                </tr>
-                <tr *ngFor="let incumplimiento of incumplimientos_detailed_info">
-                    <td>{{incumplimiento[1]}}</td>
-                    <td>{{incumplimiento[0]}}</td>
-                </tr>
-            </table>
-            <div *ngIf="no_records" class="flex flex-row justify-center">
-                <p class="text-lg pt-3">No hay registros</p>
-            </div>
-        </div>
         <!--Graficas de Calificaciones e Incumplimientos detallado-->
         <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
             <p class="text-lg font-medium mb-3">Gráficas</p>
@@ -216,4 +181,43 @@
                 </div>
             </div>
         </div>
+        <!--Tabla de Incumplimientos dependiendo del tipo de corral que se elija-->
+        <form [formGroup]="incumplimientos_month_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">
+            <div *ngIf="true" class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+                <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
+                <div class="flex flex-row space-x-3 items-center py-1">
+                    <p>Selecciones un mes:</p>
+                    <select formControlName="month" class="border-2 rounded-md px-3 py-1">
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <div class="flex flex-row items-center">
+                        <button type="submit" class="my-1 py-1 px-6 bg-blue-500 rounded-lg text-white">Buscar</button>
+                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Frecuencia</th>
+                        <th>Observación</th>
+                    </tr>
+                    <tr *ngFor="let incumplimiento of incumplimientos_detailed_info">
+                        <td>{{incumplimiento[1]}}</td>
+                        <td>{{incumplimiento[0]}}</td>
+                    </tr>
+                </table>
+                <div *ngIf="no_records" class="flex flex-row justify-center">
+                    <p class="text-lg pt-3">No hay registros</p>
+                </div>
+            </div>
+        </form>
     </div>

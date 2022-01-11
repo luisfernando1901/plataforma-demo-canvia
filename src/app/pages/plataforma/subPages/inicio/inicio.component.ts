@@ -40,8 +40,11 @@ export class InicioComponent implements OnInit {
   detailed_info_form = this.fb.group({
     tipo_de_corral: null,
     nombre_de_corral: null,
-    month: 'Todos',
     year: null,
+  });
+  //Formulario para la tabla de incumplimiento detallado
+  incumplimientos_month_form = this.fb.group({
+    month: null,
   });
   //Variable para mostrar el mensaje de no hay datos
   no_records = true;
@@ -398,13 +401,9 @@ export class InicioComponent implements OnInit {
 
   //Función para buscar información de incumplimientos por corral
   async getIncumplimientosByCorralDetailedInfo() {
-    //Limpiamos la gráfica de incumplimientos detallado
-    this.clearGraphIncumplimientosDetallado();
-    //Limpiamos la gráfica de calificación detallado
-    this.clearGraphCalificacionesDetallado();
     this.isLoadingGraphdata = true;
     this.incumplimientos_detailed_info = [];
-    var year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
+    var year_month_string = `${this.detailed_info_form.value.year}-${this.incumplimientos_month_form.value.month}`;
     switch (this.detailed_info_form.value.tipo_de_corral) {
       case 'CACN':
         this.incumplimientos_detailed_info = await this._mongodb.getIncumplimientosDetailedCACN(this.detailed_info_form.value.nombre_de_corral, year_month_string);
@@ -424,6 +423,14 @@ export class InicioComponent implements OnInit {
     else {
       this.no_records = false;
     }
+  }
+
+  //Función para generar las gráficas de calificación e incumplimiento detallado
+  async generateDetailedInfoGraphs() {
+    //Limpiamos la gráfica de incumplimientos detallado
+    this.clearGraphIncumplimientosDetallado();
+    //Limpiamos la gráfica de calificación detallado
+    this.clearGraphCalificacionesDetallado();
     //Generamos las gráficas de calificación e incumplimiento detallado
     await this.generateGraphCalificacionesDetallado();
     await this.generateGraphIncumplimientosDetallado();
@@ -431,20 +438,8 @@ export class InicioComponent implements OnInit {
 
   //Función para cargar los datos de la gráfica de calificación detallado
   async generateGraphCalificacionesDetallado() {
-    let year_month_string;
-    //Leemos el input de mes, en caso sea "Todos" o un mes en específico.
-    let month_option = this.detailed_info_form.value.month;
-    if (month_option == 'Todos') {
-      year_month_string = `${this.detailed_info_form.value.year}`;
-      this.show_incumplimiento_detallado_table = false;
-    }
-    else {
-      year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
-      this.show_incumplimiento_detallado_table = true;
-    }
-    month_option == 'Todos'? year_month_string = `${this.detailed_info_form.value.year}`: year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
     //Consultamos la data para la gráfica de calificaciones detallado
-    let data_calificacion_detallado = await this._mongodb.getInfoGraphCalificacionDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, year_month_string);
+    let data_calificacion_detallado = await this._mongodb.getInfoGraphCalificacionDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
     let colores_de_porcentajes = [];
     //Definimos los colores de acuerdo al porcentaje
     for (let index = 0; index < data_calificacion_detallado.length; index++) {
@@ -483,20 +478,8 @@ export class InicioComponent implements OnInit {
 
   //Función para cargar los datos de la gráfica de incumplimientos detallado
   async generateGraphIncumplimientosDetallado() {
-    let year_month_string;
-    //Leemos el input de mes, en caso sea "Todos" o un mes en específico.
-    let month_option = this.detailed_info_form.value.month;
-    if (month_option == 'Todos') {
-      year_month_string = `${this.detailed_info_form.value.year}`;
-      this.show_incumplimiento_detallado_table = false;
-    }
-    else {
-      year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
-      this.show_incumplimiento_detallado_table = true;
-    }
-    month_option == 'Todos'? year_month_string = `${this.detailed_info_form.value.year}`: year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
     //Consultamos la data para la gráfica de incumplimientos detallado
-    var data_incumplimientos_detallado = await this._mongodb.getInfoGraphIncumplimientosDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, year_month_string);
+    var data_incumplimientos_detallado = await this._mongodb.getInfoGraphIncumplimientosDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
     this.incumplimientoChartJsonDataDetallado.datasets[0].data = data_incumplimientos_detallado;
     //Actualizamos el gráfico
     this.isLoadingGraphdata = false;
