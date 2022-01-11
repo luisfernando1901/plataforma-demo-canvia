@@ -20,6 +20,8 @@ export class InicioComponent implements OnInit {
   //Variable para indicar loading
   isLoading = true;
   isLoadingGraphdata = false;
+  //Variable para controlar cuando se muestra la tabla de incumplimiento detallado
+  show_incumplimiento_detallado_table = false;
   //Variables para la gráfica de tendencias
   graphInfo = this.fb.group({
     tipo_de_corral: null,
@@ -38,7 +40,7 @@ export class InicioComponent implements OnInit {
   detailed_info_form = this.fb.group({
     tipo_de_corral: null,
     nombre_de_corral: null,
-    month: null,
+    month: 'Todos',
     year: null,
   });
   //Variable para mostrar el mensaje de no hay datos
@@ -429,7 +431,18 @@ export class InicioComponent implements OnInit {
 
   //Función para cargar los datos de la gráfica de calificación detallado
   async generateGraphCalificacionesDetallado() {
-    let year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
+    let year_month_string;
+    //Leemos el input de mes, en caso sea "Todos" o un mes en específico.
+    let month_option = this.detailed_info_form.value.month;
+    if (month_option == 'Todos') {
+      year_month_string = `${this.detailed_info_form.value.year}`;
+      this.show_incumplimiento_detallado_table = false;
+    }
+    else {
+      year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
+      this.show_incumplimiento_detallado_table = true;
+    }
+    month_option == 'Todos'? year_month_string = `${this.detailed_info_form.value.year}`: year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
     //Consultamos la data para la gráfica de calificaciones detallado
     let data_calificacion_detallado = await this._mongodb.getInfoGraphCalificacionDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, year_month_string);
     let colores_de_porcentajes = [];
@@ -470,7 +483,18 @@ export class InicioComponent implements OnInit {
 
   //Función para cargar los datos de la gráfica de incumplimientos detallado
   async generateGraphIncumplimientosDetallado() {
-    var year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
+    let year_month_string;
+    //Leemos el input de mes, en caso sea "Todos" o un mes en específico.
+    let month_option = this.detailed_info_form.value.month;
+    if (month_option == 'Todos') {
+      year_month_string = `${this.detailed_info_form.value.year}`;
+      this.show_incumplimiento_detallado_table = false;
+    }
+    else {
+      year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
+      this.show_incumplimiento_detallado_table = true;
+    }
+    month_option == 'Todos'? year_month_string = `${this.detailed_info_form.value.year}`: year_month_string = `${this.detailed_info_form.value.year}-${this.detailed_info_form.value.month}`;
     //Consultamos la data para la gráfica de incumplimientos detallado
     var data_incumplimientos_detallado = await this._mongodb.getInfoGraphIncumplimientosDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, year_month_string);
     this.incumplimientoChartJsonDataDetallado.datasets[0].data = data_incumplimientos_detallado;

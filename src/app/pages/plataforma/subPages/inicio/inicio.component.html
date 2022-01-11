@@ -159,6 +159,7 @@
                     <div class="flex flex-row space-x-3 items-center py-1">
                         <p>Mes:</p>
                         <select formControlName="month" class="border-2 rounded-md px-3 py-1">
+                            <option selected value="Todos">Todos</option>
                             <option value="01">Enero</option>
                             <option value="02">Febrero</option>
                             <option value="03">Marzo</option>
@@ -187,7 +188,7 @@
             </div>
         </form>
         <!--Tabla de Incumplimientos dependiendo del tipo de corral que se elija-->
-        <div class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
+        <div *ngIf="show_incumplimiento_detallado_table" class="flex flex-col space-y-3 border-2 p-3 rounded-lg shadow-md">
             <p class="text-lg font-medium mb-3">Tabla de Incumplimientos</p>
             <table>
                 <tr>
