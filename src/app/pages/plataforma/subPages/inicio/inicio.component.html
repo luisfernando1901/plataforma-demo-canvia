@@ -180,6 +180,26 @@
                     <canvas id="chart_incumplimiento_detallado"></canvas>
                 </div>
             </div>
+            <p class="text-lg font-medium mb-3">Incumplimiento anual</p>
+            <!-- FALTA TERMINAR
+                <div class="flex flex-row justify-center">
+                <div class="flex h-full w-1/2" style="position: relative">
+                    <canvas id="chart_frecuencias_incumplimiento_detallado"></canvas>
+                </div>
+            </div>
+            -->
+            <table>
+                <tr>
+                    <th>Frecuencia</th>
+                    <th>Observación</th>
+                    <th>Presente en</th>
+                </tr>
+                <tr *ngFor="let incumplimiento of incumplimientos_anuales_detailed_info">
+                    <td>{{incumplimiento[1]}}</td>
+                    <td>{{incumplimiento[0]}}</td>
+                    <td><span *ngFor="let month of incumplimiento[2]">{{month}} </span></td>
+                </tr>
+            </table>
         </div>
         <!--Tabla de Incumplimientos dependiendo del tipo de corral que se elija-->
         <form [formGroup]="incumplimientos_month_form" (ngSubmit)="getIncumplimientosByCorralDetailedInfo()">

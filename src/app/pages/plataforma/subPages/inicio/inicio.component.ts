@@ -52,6 +52,8 @@ export class InicioComponent implements OnInit {
   nombres_de_corrales_detailed_info = [];
   //Variables para enlistar los datos devueltos por la búsqueda de incumplimientos por corral
   incumplimientos_detailed_info = [];
+  //Esta es la vaeriable para incumplimientos anuales detallados
+  incumplimientos_anuales_detailed_info = [];
   //Arreglo de colores para la gráfica
   colores_de_porcentajes: string[] = [];
   chartJsonData = {
@@ -111,6 +113,18 @@ export class InicioComponent implements OnInit {
       },
     ]
   }
+  //Data de la gráfica de frecuencias de incumplimiento detallado
+  frecuenciaIncumplimientosChartJsonDataDetallado = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    datasets: [
+      {
+        label: '- (%)',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        borderColor: 'rgba(193,66,66, 0.8)',
+        backgroundColor: 'rgba(193,66,66, 0.8)',
+      },
+    ]
+  }
   //Data de la gráfica de cumplimiento detallada
   calificacionChartJsonDataGeneral = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -138,6 +152,7 @@ export class InicioComponent implements OnInit {
   chart_calificacion_detallado: any;
   chart_incumplimiento_general: any;
   chart_incumplimiento_detallado: any;
+  chart_frecuencias_incumplimiento_detallado: any;
 
   constructor(private _mongodb: MongodbService, private fb: FormBuilder) {
     this.getNumberOfForms();
@@ -268,6 +283,29 @@ export class InicioComponent implements OnInit {
           title: {
             display: true,
             text: 'Porcentaje de incumplimientos'
+          }
+        }
+      }
+    });
+    //Iniciamos cargando la gráfica de frecuencias de incumplimiento detallado
+    this.chart_frecuencias_incumplimiento_detallado = new Chart('chart_frecuencias_incumplimiento_detallado', {
+      type: 'line',
+      data: this.frecuenciaIncumplimientosChartJsonDataDetallado,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Porcentaje de incumplimientos más frecuentes'
           }
         }
       }
@@ -434,6 +472,8 @@ export class InicioComponent implements OnInit {
     //Generamos las gráficas de calificación e incumplimiento detallado
     await this.generateGraphCalificacionesDetallado();
     await this.generateGraphIncumplimientosDetallado();
+    //Generamos la gráfica de incumplimientos con más repeticiones(FALTA HACER)
+    await this.generateGraphAndTableIncumplimientosMasRepeticiones();
   }
 
   //Función para cargar los datos de la gráfica de calificación detallado
@@ -498,5 +538,25 @@ export class InicioComponent implements OnInit {
     this.incumplimientoChartJsonDataDetallado.datasets[0].label = '- (%)';
     this.incumplimientoChartJsonDataDetallado.datasets[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.chart_incumplimiento_detallado.update();
+  }
+
+  //Función para cargar los datos de la gráfica de incumplimientos con más repeticiones (FALTA HACER)
+  async generateGraphAndTableIncumplimientosMasRepeticiones() {
+    this.incumplimientos_anuales_detailed_info = [];
+    let months_array = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    //Consultamos la data para la tabla de incumplimientos con más repeticiones
+    switch (this.detailed_info_form.value.tipo_de_corral) {
+      case 'CACN':
+        this.incumplimientos_anuales_detailed_info = await this._mongodb.getIncumplimientosDetailedCACN(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
+        break;
+      case 'CE':
+        this.incumplimientos_anuales_detailed_info = await this._mongodb.getIncumplimientosDetailedCE(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
+        break;
+      case 'CEA':
+        this.incumplimientos_anuales_detailed_info = await this._mongodb.getIncumplimientosDetailedCEA(this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
+        break;
+      default:
+        break;
+    }
   }
 }
