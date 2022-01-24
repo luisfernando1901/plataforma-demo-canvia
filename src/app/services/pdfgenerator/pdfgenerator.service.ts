@@ -17,7 +17,15 @@ export class PdfgeneratorService {
 
   constructor() { }
 
+  orderDateFormat(date:string){
+    let separated = date.split('-');
+    let newDate = `${separated[2]}-${separated[1]}-${separated[0]}`;
+    return newDate
+  }
+
   generatePdf(formAnswers: any, templates: object, type: string) {
+    //Modificamos el formato de fecha
+    let newDateFormat = this.orderDateFormat(formAnswers.general_info.fechaDeCaptura);
     let forms_templates: any = templates;
     let PDF: any = {};
     if (type == 'CACN') {
@@ -35,10 +43,11 @@ export class PdfgeneratorService {
           { text: 'ESTATUS NA TB-SINALOA 2021', style: 'header' },
           { text: `Folio: ${formAnswers.folio}`, style: 'header' },
           { text: 'INFORMACIÓN GENERAL', style: 'titles', margin: [0, 8, 0, 4] },
+          { text: `NOMBRE DE CORRAL: ${formAnswers.general_info.infoCliente.NOMBRE}`, style: 'simpleText' },
           { text: `PSG: ${formAnswers.general_info.infoCliente.PSG}`, style: 'simpleText' },
           { text: `INVENTARIO DE GANADO: ${formAnswers.form.inventario_de_ganado}`, style: 'simpleText' },
           { text: `GEOREFERENCIACION: ${formAnswers.general_info.infoCliente.LATITUD} , ${formAnswers.general_info.infoCliente.LONGITUD}`, style: 'simpleText' },
-          { text: `FECHA: ${formAnswers.general_info.fechaDeCaptura}`, style: 'simpleText' },
+          { text: `FECHA: ${newDateFormat}`, style: 'simpleText' },
           { text: `CACN: ${formAnswers.form.CACN}`, style: 'simpleText' },
           { text: `MVZ CACN: ${formAnswers.form.MVZ_CACN}`, style: 'simpleText' },
           { text: `MVZ RA SUPERVISOR: ${formAnswers.form.MVZ_RA_SUPERVISOR}`, style: 'simpleText' },
@@ -211,6 +220,8 @@ export class PdfgeneratorService {
           { text: 'EVALUACION DEL CUMPLIMIENTO DE LOS REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA (CE)', style: 'header' },
           { text: `Folio: ${formAnswers.folio}`, style: 'header' },
           { text: 'INFORMACIÓN GENERAL', style: 'titles', margin: [0, 8, 0, 4] },
+          { text: `NOMBRE DE CORRAL: ${formAnswers.general_info.infoCliente.NOMBRE}`, style: 'simpleText' },
+          { text: `FECHA: ${newDateFormat}`, style: 'simpleText' },
           { text: `Capacidad Instalada del Corral de Engorda: ${formAnswers.form.capacidad_instalada}`, style: 'simpleText' },
           { text: `Capacidad Utilizada del Corral de Engorda: ${formAnswers.form.capacidad_utilizada}`, style: 'simpleText' },
           { text: `Numero de corrales Internos: ${formAnswers.form.numero_corrales_internos}`, style: 'simpleText' },
@@ -389,6 +400,8 @@ export class PdfgeneratorService {
           { text: 'EVALUACION DEL CUMPLIMIENTO DE LOS REQUISITOS DE OPERACIÓN PARA LOS CORRALES DE ENGORDA APROBADOS (CEA)', style: 'header' },
           { text: `Folio: ${formAnswers.folio}`, style: 'header' },
           { text: 'INFORMACIÓN GENERAL', style: 'titles', margin: [0, 8, 0, 4] },
+          { text: `NOMBRE DE CORRAL: ${formAnswers.general_info.infoCliente.NOMBRE}`, style: 'simpleText' },
+          { text: `FECHA: ${newDateFormat}`, style: 'simpleText' },
           { text: `Capacidad instalada del corral de engorda: ${formAnswers.form.capacidad_instalada}`, style: 'simpleText' },
           { text: `Capacidad utilizada del corral de engorda: ${formAnswers.form.capacidad_utilizada}`, style: 'simpleText' },
           { text: `Numero de corrales internos: ${formAnswers.form.numero_corrales_internos}`, style: 'simpleText' },
