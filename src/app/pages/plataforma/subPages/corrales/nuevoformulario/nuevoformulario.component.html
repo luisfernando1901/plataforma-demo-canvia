@@ -232,7 +232,7 @@
     </div>
     <br>
     <div class="flex justify-content-center">
-        <p-button [disabled]="isUploading" (click)="sendCACN()" label="Terminar formulario CACN"></p-button>
+        <p-button [disabled]="isUploading" *ngIf="(generalInfoForm.value.fechaDeCaptura != null)" (click)="sendCACN()" label="Terminar formulario CACN"></p-button>
     </div>
 </form>
 <!-- FORMULARIO CE-->
@@ -428,7 +428,7 @@
     </div>
     <br>
     <div class="flex justify-content-center">
-        <p-button [disabled]="isUploading" (click)="sendCE()" label="Terminar formulario CE"></p-button>
+        <p-button [disabled]="isUploading" *ngIf="(generalInfoForm.value.fechaDeCaptura != null)" (click)="sendCE()" label="Terminar formulario CE"></p-button>
     </div>
 </form>
 <!-- FORMULARIO CEA-->
@@ -655,7 +655,7 @@
     </div>
     <br>
     <div class="flex justify-content-center">
-        <p-button [disabled]="isUploading" (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
+        <p-button [disabled]="isUploading" *ngIf="(generalInfoForm.value.fechaDeCaptura != null)" (click)="sendCEA()" label="Terminar formulario CEA"></p-button>
     </div>
 </form>
 <!-- MENSAJE DE QUE AÚN NO SE HA ELEGIDO FORMULARIO -->

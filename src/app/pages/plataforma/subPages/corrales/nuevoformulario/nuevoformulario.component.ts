@@ -65,7 +65,7 @@ export class NuevoformularioComponent implements OnInit {
     LATITUD: [{ value: '', disabled: true }],
     LONGITUD: [{ value: '', disabled: true }],
     folio: [{ value: '', disabled: true }],
-    fechaDeCaptura: [],
+    fechaDeCaptura: null,
   });
   //Dinamic forms
   answersFormCACN = this.fb.group({
