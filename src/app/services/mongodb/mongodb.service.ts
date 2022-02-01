@@ -43,6 +43,12 @@ export class MongodbService {
     let result = await this.http.get(`${environment.base_url}/historicoDeFormularios`, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+  //Función para obtener los formularios de CACN, CE y CEA en el año actual
+  async getFormsByYear(year:string){
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/numeroDeVisitasPorCorral/${year}`, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
   // Función para obtener la lista de colaboradores
   async getColaboratorsList() {
     this.getSessionToken();
@@ -163,6 +169,14 @@ export class MongodbService {
     let result = await this.http.get(`${environment.base_url}/verifyToken`, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+
+  //Función para obtener el total de corrales por tipo
+  async getTotalCorralesPorTipo() {
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/obtenerTotalCorralesPorTipo`, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
   // Función para ser llamada en todas las funciones previas que necesiten obtener el token de sesión
   getSessionToken() {
     let token = sessionStorage.getItem('comiteToken');

@@ -10,6 +10,10 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
+  //Total de corrales para cada tipo
+  total_corrales_cacn: number = 0;
+  total_corrales_ce:number = 0;
+  total_corrales_cea: number = 0;
   // Variable para la fecha y hora
   actualizationHour = new Date().toISOString();
   // Variables para los números de formularios
@@ -155,6 +159,7 @@ export class InicioComponent implements OnInit {
   chart_frecuencias_incumplimiento_detallado: any;
 
   constructor(private _mongodb: MongodbService, private fb: FormBuilder) {
+    this.getTotalCorralesPorTipo();
     this.getNumberOfForms();
   }
 
@@ -316,12 +321,20 @@ export class InicioComponent implements OnInit {
 
   // Función para obtener la cantidad de formularios almacenados hasta el momento
   async getNumberOfForms() {
-    let result: any = await this._mongodb.getForms();
+    let result: any = await this._mongodb.getFormsByYear('2022');
     this.isLoading = false;
-    this.cacn_number = result.forms_historical.cacn_forms.length;
-    this.ce_number = result.forms_historical.ce_forms.length;
-    this.cea_number = result.forms_historical.cea_forms.length;
+    this.cacn_number = result.forms_historical.cacn_forms;
+    this.ce_number = result.forms_historical.ce_forms;
+    this.cea_number = result.forms_historical.cea_forms;
     this.total_number_of_forms = this.cacn_number + this.ce_number + this.cea_number;
+  }
+
+  //Función para obtener el total de corrales en el directorio por tipo
+  async getTotalCorralesPorTipo() {
+    let result = await this._mongodb.getTotalCorralesPorTipo();
+    this.total_corrales_cacn = result.corrales_cacn;
+    this.total_corrales_ce = result.corrales_ce;
+    this.total_corrales_cea = result.corrales_cea;
   }
   //Función para generar excel de tendecias en zona SUR
   async generateExcelTendencias() {
