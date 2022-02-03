@@ -14,6 +14,15 @@ export class InicioComponent implements OnInit {
   total_corrales_cacn: number = 0;
   total_corrales_ce:number = 0;
   total_corrales_cea: number = 0;
+  //Mostrar lista de corrales
+  show_corrales_list = false;
+  //Nombre de lista de tipo de corral seleccionado
+  selected_corral_type_name: string = '';
+  //Lista del directorio de corrales por tipo
+  lista_corrales_mostrada = [];
+  lista_corrales_cacn = [];
+  lista_corrales_ce = [];
+  lista_corrales_cea = [];
   // Variable para la fecha y hora
   actualizationHour = new Date().toISOString();
   // Variables para los números de formularios
@@ -332,9 +341,12 @@ export class InicioComponent implements OnInit {
   //Función para obtener el total de corrales en el directorio por tipo
   async getTotalCorralesPorTipo() {
     let result = await this._mongodb.getTotalCorralesPorTipo();
-    this.total_corrales_cacn = result.corrales_cacn;
-    this.total_corrales_ce = result.corrales_ce;
-    this.total_corrales_cea = result.corrales_cea;
+    this.total_corrales_cacn = result.cantidad_corrales_cacn;
+    this.total_corrales_ce = result.cantidad_corrales_ce;
+    this.total_corrales_cea = result.cantidad_corrales_cea;
+    this.lista_corrales_cacn = result.corrales_cacn;
+    this.lista_corrales_ce = result.corrales_ce;
+    this.lista_corrales_cea = result.corrales_cea;
   }
   //Función para generar excel de tendecias en zona SUR
   async generateExcelTendencias() {
@@ -571,5 +583,31 @@ export class InicioComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  //Función para mostrar la lista de corrales
+  showCorralesList(corral_type:string) {
+    this.show_corrales_list = true;
+    switch (corral_type) {
+      case 'CACN':
+        this.selected_corral_type_name = 'CACN';
+        this.lista_corrales_mostrada = this.lista_corrales_cacn;
+        break;
+      case 'CE':
+        this.selected_corral_type_name = 'CE';
+        this.lista_corrales_mostrada = this.lista_corrales_ce;
+        break;
+      case 'CEA':
+        this.selected_corral_type_name = 'CEA';
+        this.lista_corrales_mostrada = this.lista_corrales_cea;
+        break;
+      default:
+        break;
+    }
+  }
+
+  //Función para ocultar la lista de corrales
+  hideCorralesList(){
+    this.show_corrales_list = false;
   }
 }

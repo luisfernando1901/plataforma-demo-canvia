@@ -4,7 +4,7 @@
         <p class="text-xl font-semibold mb-1">Información General</p>
         <hr class="mb-3">
         <!--Sección de tarjetas-->
-        <div class="flex flex-row flex-wrap justify-around py-6">
+        <div class="flex flex-row flex-wrap justify-around py-3">
             <div class="col-12 md:col-6 lg:col-3">
                 <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
                     <div class="flex justify-between mb-3">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <span class="text-500">Actualizado: </span>
-                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3">
@@ -27,7 +27,7 @@
                     <div class="flex justify-between mb-3">
                         <div>
                             <span class="block text-500 font-medium mb-3">Visitas CACN</span>
-                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cacn_number}}/{{total_corrales_cacn}}</div>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cacn_number}}</div>
                             <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                         </div>
                         <div class="flex justify-center items-center bg-blue-100 rounded-xl"
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <span class="text-500">Actualizado: </span>
-                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3">
@@ -44,7 +44,7 @@
                     <div class="flex justify-between mb-3">
                         <div>
                             <span class="block text-500 font-medium mb-3">Visitas CE</span>
-                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{ce_number}}/{{total_corrales_ce}}</div>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{ce_number}}</div>
                             <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                         </div>
                         <div class="flex justify-center items-center bg-red-100 rounded-xl"
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <span class="text-500">Actualizado: </span>
-                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3">
@@ -61,7 +61,7 @@
                     <div class="flex justify-between mb-3">
                         <div>
                             <span class="block text-500 font-medium mb-3">Visitas CEA</span>
-                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cea_number}}/{{total_corrales_cea}}</div>
+                            <div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{cea_number}}</div>
                             <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
                         </div>
                         <div class="flex justify-center items-center bg-green-100 rounded-xl"
@@ -70,8 +70,75 @@
                         </div>
                     </div>
                     <span class="text-500">Actualizado: </span>
-                    <span class="text-green-500 font-medium">{{actualizationHour}}</span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
                 </div>
+            </div>
+        </div>
+        <div class="flex flex-row flex-wrap justify-around py-6">
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Directorio CACN</span>
+                            <button (click)="showCorralesList('CACN')"><div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{total_corrales_cacn}}</div></button>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-blue-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-home text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Directorio CE</span>
+                            <button (click)="showCorralesList('CE')"><div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{total_corrales_ce}}</div></button>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-red-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-home text-orange-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <div class="CACNface-0 p-3 border-2 rounded-2xl shadow-md w-52">
+                    <div class="flex justify-between mb-3">
+                        <div>
+                            <span class="block text-500 font-medium mb-3">Directorio CEA</span>
+                            <button (click)="showCorralesList('CEA')"><div class="text-900 font-medium text-xl" *ngIf="!isLoading">{{total_corrales_cea}}</div></button>
+                            <i nz-icon nzType="loading" nzTheme="outline" *ngIf="isLoading"></i>
+                        </div>
+                        <div class="flex justify-center items-center bg-green-100 rounded-xl"
+                            style="width:2.5rem;height:2.5rem">
+                            <i class="pi pi-home text-cyan-500 text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-500">Actualizado: </span>
+                    <span class="text-green-500 font-medium">{{actualizationHour | date:'medium'}}</span>
+                </div>
+            </div>
+        </div>
+        <!--Tabla donde se muestran los corrales-->
+        <div *ngIf="show_corrales_list" class="flex flex-col w-full h-80 shadow-md rounded-md border-2 p-3">
+            <div class="flex flex-row w-full justify-end">
+                <button (click)="hideCorralesList()"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg></button>
+            </div>
+            <p class="text-lg font-semibold">Directorio de corrales {{selected_corral_type_name}}</p>
+            <div class="overflow-y-scroll p-1">
+                <p *ngFor="let corral of lista_corrales_mostrada">
+                    - {{corral}}
+                </p>
             </div>
         </div>
         <!--Descargar excel de tendencias-->

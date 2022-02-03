@@ -39,7 +39,7 @@ export class PdfgeneratorService {
             , width: 400,
             margin: [60, 0, 0, 10],
           },
-          { text: 'CRITERIOS DE SUPERVISION A CUMPLIR ACORDADOS POR LA SECRETARIA DE AGRICULTURA Y GNADERIA DEL GOBIERNO DE SINALOA PARA CORRALES DE ACOPIO DE CONSUMO NACIONAL (CACN)', style: 'header' },
+          { text: 'CRITERIOS DE SUPERVISION A CUMPLIR ACORDADOS POR LA SECRETARIA DE AGRICULTURA Y GANADERIA DEL GOBIERNO DE SINALOA PARA CORRALES DE ACOPIO DE CONSUMO NACIONAL (CACN)', style: 'header' },
           { text: 'ESTATUS NA TB-SINALOA 2021', style: 'header' },
           { text: `Folio: ${formAnswers.folio}`, style: 'header' },
           { text: 'INFORMACIÓN GENERAL', style: 'titles', margin: [0, 8, 0, 4] },
@@ -355,7 +355,7 @@ export class PdfgeneratorService {
           {
             columns: [
               [{ text: '_________________________', margin: [0, 16, 0, 4] }, { text: '_________________________', margin: [0, 16, 0, 4] }, 'OFICIAL ESTATAL'],
-              [{ text: '_________________________', margin: [0, 16, 0, 4] }, { text: '_________________________', margin: [0, 16, 0, 4] }, 'CACN'],
+              [{ text: '_________________________', margin: [0, 16, 0, 4] }, { text: '_________________________', margin: [0, 16, 0, 4] }, 'CE'],
               [{ text: '_________________________', margin: [0, 16, 0, 4] }, { text: '_________________________', margin: [0, 16, 0, 4] }, 'CEFPP/SIN'],
             ],
             // optional space between columns
