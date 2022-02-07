@@ -14,6 +14,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 //PRIMENG modules
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
@@ -36,6 +37,7 @@ import { MongodbService } from 'src/app/services/mongodb/mongodb.service';
 import { PdfgeneratorService } from 'src/app/services/pdfgenerator/pdfgenerator.service';
 import { ListaDeColaboradoresComponent } from './subPages/colaboradores/lista-de-colaboradores/lista-de-colaboradores.component';
 import { ConfiguracionComponent } from './subPages/configuracion/configuracion/configuracion.component';
+import { DirectorioComponent } from './subPages/directorio/directorio.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { ConfiguracionComponent } from './subPages/configuracion/configuracion/c
     NuevoformularioComponent,
     HistorialdereportesComponent,
     ListaDeColaboradoresComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    DirectorioComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +71,8 @@ import { ConfiguracionComponent } from './subPages/configuracion/configuracion/c
     NzButtonModule,
     NzIconModule,
     PasswordModule,
-    NzSelectModule
+    NzSelectModule,
+    NzModalModule
   ],
   providers:[
     MongodbService,

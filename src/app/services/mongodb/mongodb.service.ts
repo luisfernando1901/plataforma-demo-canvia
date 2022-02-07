@@ -206,4 +206,32 @@ export class MongodbService {
     let result = await this.http.post(`${environment.base_url}/deleteColaborator`, userData, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+
+  //Función para obtener el directorio de corrales
+  async obtenerListaDeCorralesPorZona() {
+    this.getSessionToken();
+    let result:any = await this.http.get(`${environment.base_url}/obtenerListaDeCorralesPorZona`, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
+  //Función para crear un nuevo corral en el directorio
+  async createNewCorral(corralData: object) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/agregarCorral`, corralData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
+  //Función para editar un corral en el directorio
+  async updateCorral(corralData: object) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/editarCorral`, corralData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
+
+  //Función para eliminar un corral del directorio
+  async deleteCorral(corralData: object) {
+    this.getSessionToken();
+    let result = await this.http.post(`${environment.base_url}/eliminarCorral`, corralData, { headers: { 'authorization': this.token } }).toPromise();
+    return result
+  }
 }

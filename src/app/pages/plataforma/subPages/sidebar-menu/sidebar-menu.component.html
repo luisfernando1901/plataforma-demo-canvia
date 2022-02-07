@@ -42,6 +42,10 @@
           </li>
         </ul>
       </li>
+      <li nz-menu-item [nzDisabled]="!admin">
+        <i nz-icon nzType="book"></i>
+        <span><a [routerLink]="['directorio']">Directorio</a></span>
+      </li>
       <li nz-submenu nzTitle="Colaboradores" nzIcon="team">
         <ul>
           <li nz-menu-item>

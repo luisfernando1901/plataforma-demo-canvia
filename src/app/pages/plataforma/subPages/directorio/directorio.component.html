@@ -1,0 +1,321 @@
+<!--Corrales Norte-->
+<div class="flex flex-row items-center space-x-3">
+    <p class="text-lg font-semibold">Corrales Norte</p>
+    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg" (click)="showModal_create()">+ Nuevo corral</button>
+    <!--Modal para agregar nuevo corral al directorio-->
+    <nz-modal [(nzVisible)]="create_isVisible" nzTitle="AGREGAR NUEVO CORRAL" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+            <p class="font-semibold text-red-500 pb-3">Todos los campos son obligatorios*</p>
+            <form [formGroup]="new_corral">
+                <div class="flex flex-col space-y-3">
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Nombre</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="NOMBRE">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Tipo de corral</p>
+                        <select class="border-2 rounded-lg" formControlName="TIPO_DE_CORRAL">
+                            <option value="CACN NORTE">CACN NORTE</option>
+                            <option value="CACN SUR">CACN SUR</option>
+                            <option value="CACN CENTRO">CACN CENTRO</option>
+                            <option value="CE NORTE">CE NORTE</option>
+                            <option value="CE SUR">CE SUR</option>
+                            <option value="CE CENTRO">CE CENTRO</option>
+                            <option value="CEA NORTE">CEA NORTE</option>
+                            <option value="CEA SUR">CEA SUR</option>
+                            <option value="CEA CENTRO">CEA CENTRO</option>
+                        </select>
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">PSG</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="PSG">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Propietario</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="PROPIETARIO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Actividad</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="ACTIVIDAD">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Dirección</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="DIRECCION">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Frecuencia de visita</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="FRECUENCIA DE VISITA">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Colonia</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="COLONIA">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Municipio</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="MUNICIPIO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Estado</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="ESTADO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Latitud</p>
+                        <input class="border-2 rounded-lg" type="number" formControlName="LATITUD">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Longitud</p>
+                        <input class="border-2 rounded-lg" type="number" formControlName="LONGITUD">
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </nz-modal>
+    <!--Modal para modificar un corral del directorio-->
+    <nz-modal [(nzVisible)]="update_isVisible" nzTitle="EDITAR CORRAL" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+        <ng-container *nzModalContent>
+            <p class="font-semibold text-red-500 pb-3">Todos los campos son obligatorios*</p>
+            <form [formGroup]="update_corral">
+                <div class="flex flex-col space-y-3">
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Nombre</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="NOMBRE">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Tipo de corral</p>
+                        <select class="border-2 rounded-lg" formControlName="TIPO_DE_CORRAL">
+                            <option value="CACN NORTE">CACN NORTE</option>
+                            <option value="CACN SUR">CACN SUR</option>
+                            <option value="CACN CENTRO">CACN CENTRO</option>
+                            <option value="CE NORTE">CE NORTE</option>
+                            <option value="CE SUR">CE SUR</option>
+                            <option value="CE CENTRO">CE CENTRO</option>
+                            <option value="CEA NORTE">CEA NORTE</option>
+                            <option value="CEA SUR">CEA SUR</option>
+                            <option value="CEA CENTRO">CEA CENTRO</option>
+                        </select>
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">PSG</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="PSG">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Propietario</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="PROPIETARIO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Actividad</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="ACTIVIDAD">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Dirección</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="DIRECCION">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Frecuencia de visita</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="FRECUENCIA DE VISITA">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Colonia</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="COLONIA">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Municipio</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="MUNICIPIO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Estado</p>
+                        <input class="border-2 rounded-lg uppercase" type="text" formControlName="ESTADO">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Latitud</p>
+                        <input class="border-2 rounded-lg" type="number" formControlName="LATITUD">
+                    </div>
+                    <div class="flex-flex-col space-y-1">
+                        <p class="font-semibold">Longitud</p>
+                        <input class="border-2 rounded-lg" type="number" formControlName="LONGITUD">
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </nz-modal>
+</div>
+<hr class="mt-1 mb-3">
+<nz-table #table_norte [nzData]="listOfDisplayNorte"  [nzScroll]="{ x: '1100px' }">
+    <thead>
+        <tr>
+            <th nzLeft nzCustomFilter>
+                Nombre
+                <nz-filter-trigger [(nzVisible)]="visible_table_norte" [nzActive]="search_value_norte.length > 0" [nzDropdownMenu]="menu_norte">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+            </th>
+            <th nzLeft>Tipo de corral</th>
+            <th>PSG</th>
+            <th>Propietario</th>
+            <th>Actividad</th>
+            <th>Dirección</th>
+            <th>Frecuencia de visita</th>
+            <th>Colonia</th>
+            <th>Municipio</th>
+            <th>Estado</th>
+            <th nzRight>Latitud</th>
+            <th nzRight>Longitud</th>
+            <th nzRight>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of table_norte.data; let i = index">
+            <td nzLeft>{{ data.NOMBRE }}</td>
+            <td nzLeft>{{ data.TIPO_DE_CORRAL }}</td>
+            <td>{{ data.PSG }}</td>
+            <td>{{ data.PROPIETARIO }}</td>
+            <td>{{ data.ACTIVIDAD }}</td>
+            <td>{{ data.DIRECCION }}</td>
+            <td>{{ data['FRECUENCIA DE VISITA'] }}</td>
+            <td>{{ data.COLONIA }}</td>
+            <td>{{ data.MUNICIPIO }}</td>
+            <td>{{ data.ESTADO }}</td>
+            <td nzRight>{{ data.LATITUD }}</td>
+            <td nzRight>{{ data.LONGITUD }}</td>
+            <td nzRight>
+                <div class="flex flex-row space-x-3">
+                    <button (click)="deleteCorral(data['_id'],data.TIPO_DE_CORRAL)"><i nz-icon nzType="delete" style="color: rgba(255, 0, 0, 0.575);font-size: 20px" nzTheme="outline"></i></button>
+                    <button (click)="updateCorral(data)"><i nz-icon nzType="edit" style="color: rgba(255, 217, 0, 0.61);font-size: 20px" nzTheme="outline"></i></button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-dropdown-menu #menu_norte="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Buscar nombre" [(ngModel)]="search_value_norte" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search_norte()" class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="reset_norte()">Reset</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<!--Corrales Centro-->
+<div class="flex flex-row items-center space-x-3">
+    <p class="text-lg font-semibold">Corrales Centro</p>
+    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg" (click)="showModal_create()">+ Nuevo corral</button>
+</div>
+<hr class="mt-1 mb-3">
+<nz-table #table_centro [nzData]="listOfDisplayCentro" [nzScroll]="{ x: '1100px' }">
+    <thead>
+        <tr>
+            <th nzLeft nzCustomFilter>
+                Nombre
+                <nz-filter-trigger [(nzVisible)]="visible_table_centro" [nzActive]="search_value_centro.length > 0" [nzDropdownMenu]="menu_centro">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+            </th>
+            <th nzLeft>Tipo de corral</th>
+            <th>PSG</th>
+            <th>Propietario</th>
+            <th>Actividad</th>
+            <th>Dirección</th>
+            <th>Frecuencia de visita</th>
+            <th>Colonia</th>
+            <th>Municipio</th>
+            <th>Estado</th>
+            <th nzRight>Latitud</th>
+            <th nzRight>Longitud</th>
+            <th nzRight>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of table_centro.data">
+            <td>{{ data.NOMBRE }}</td>
+            <td>{{ data.TIPO_DE_CORRAL }}</td>
+            <td>{{ data.PSG }}</td>
+            <td>{{ data.PROPIETARIO }}</td>
+            <td>{{ data.ACTIVIDAD }}</td>
+            <td>{{ data.DIRECCION }}</td>
+            <td>{{ data['FRECUENCIA DE VISITA'] }}</td>
+            <td>{{ data.COLONIA }}</td>
+            <td>{{ data.MUNICIPIO }}</td>
+            <td>{{ data.ESTADO }}</td>
+            <td nzRight>{{ data.LATITUD }}</td>
+            <td nzRight>{{ data.LONGITUD }}</td>
+            <td nzRight>
+                <div class="flex flex-row space-x-3">
+                    <button (click)="deleteCorral(data['_id'],data.TIPO_DE_CORRAL)"><i nz-icon nzType="delete" style="color: rgba(255, 0, 0, 0.575);font-size: 20px" nzTheme="outline"></i></button>
+                    <button (click)="updateCorral(data)"><i nz-icon nzType="edit" style="color: rgba(255, 217, 0, 0.61);font-size: 20px" nzTheme="outline"></i></button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-dropdown-menu #menu_centro="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Buscar nombre" [(ngModel)]="search_value_centro" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search_centro()" class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="reset_centro()">Reset</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<!--Corrales Sur-->
+<div class="flex flex-row items-center space-x-3">
+    <p class="text-lg font-semibold">Corrales Sur</p>
+    <button class="bg-blue-500 text-white px-3 py-1 rounded-lg" (click)="showModal_create()">+ Nuevo corral</button>
+</div>
+<hr class="mt-1 mb-3">
+<nz-table #table_sur [nzData]="listOfDisplaySur" [nzScroll]="{ x: '1100px' }">
+    <thead>
+        <tr>
+            <th nzLeft nzCustomFilter>
+                Nombre
+                <nz-filter-trigger [(nzVisible)]="visible_table_sur" [nzActive]="search_value_sur.length > 0" [nzDropdownMenu]="menu_sur">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+            </th>
+            <th nzLeft>Tipo de corral</th>
+            <th>PSG</th>
+            <th>Propietario</th>
+            <th>Actividad</th>
+            <th>Dirección</th>
+            <th>Frecuencia de visita</th>
+            <th>Colonia</th>
+            <th>Municipio</th>
+            <th>Estado</th>
+            <th nzRight>Latitud</th>
+            <th nzRight>Longitud</th>
+            <th nzRight>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of table_sur.data">
+            <td>{{ data.NOMBRE }}</td>
+            <td>{{ data.TIPO_DE_CORRAL }}</td>
+            <td>{{ data.PSG }}</td>
+            <td>{{ data.PROPIETARIO }}</td>
+            <td>{{ data.ACTIVIDAD }}</td>
+            <td>{{ data.DIRECCION }}</td>
+            <td>{{ data['FRECUENCIA DE VISITA'] }}</td>
+            <td>{{ data.COLONIA }}</td>
+            <td>{{ data.MUNICIPIO }}</td>
+            <td>{{ data.ESTADO }}</td>
+            <td nzRight>{{ data.LATITUD }}</td>
+            <td nzRight>{{ data.LONGITUD }}</td>
+            <td nzRight>
+                <div class="flex flex-row space-x-3">
+                    <button (click)="deleteCorral(data['_id'],data.TIPO_DE_CORRAL)"><i nz-icon nzType="delete" style="color: rgba(255, 0, 0, 0.575);font-size: 20px" nzTheme="outline"></i></button>
+                    <button (click)="updateCorral(data)"><i nz-icon nzType="edit" style="color: rgba(255, 217, 0, 0.61);font-size: 20px" nzTheme="outline"></i></button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-dropdown-menu #menu_sur="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Buscar nombre" [(ngModel)]="search_value_sur" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search_sur()" class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="reset_sur()">Reset</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
