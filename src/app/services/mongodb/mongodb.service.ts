@@ -234,4 +234,16 @@ export class MongodbService {
     let result = await this.http.post(`${environment.base_url}/eliminarCorral`, corralData, { headers: { 'authorization': this.token } }).toPromise();
     return result
   }
+
+  //Función para obtener el numero de cabezas por tipo de corral
+  async getNumCabezasPorTipoCorral(corral_type: string, corral_name:string, year:number) {
+    this.getSessionToken();
+    let query = {
+      corral_type: corral_type,
+      corral_name: corral_name,
+      year: year
+    };
+    let result:any = await this.http.post(`${environment.base_url}/obtenerCabezasPorTipoDeFormulario`,query, { headers: { 'authorization': this.token } }).toPromise();
+    return result.data
+  }
 }

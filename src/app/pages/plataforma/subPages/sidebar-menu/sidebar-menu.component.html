@@ -12,6 +12,16 @@
         <i nz-icon nzType="line-chart"></i>
         <span><a [routerLink]="['inicio']">Data</a></span>
       </li>
+      <li nz-submenu nzTitle="Casetas (PVI)" nzIcon="lock" [nzDisabled]="true">
+        <ul>
+          <li nz-menu-item>
+            <a>Nuevo formulario</a>
+          </li>
+          <li nz-menu-item>
+            <a>Historial lde reportes</a>
+          </li>
+        </ul>
+      </li>
       <li nz-submenu nzTitle="Corrales" nzIcon="profile">
         <ul>
           <li nz-menu-item>
@@ -31,16 +41,6 @@
           </li>
           <li nz-menu-item>
             <a [routerLink]="['corrales/configuracion']">Nuevo colaborador</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Casetas (PVI)" nzIcon="lock" [nzDisabled]="true">
-        <ul>
-          <li nz-menu-item>
-            <a>Nuevo formulario</a>
-          </li>
-          <li nz-menu-item>
-            <a>Historial lde reportes</a>
           </li>
         </ul>
       </li>

@@ -164,7 +164,7 @@ export class InicioComponent implements OnInit {
   chart_calificacion_general: any;
   chart_calificacion_detallado: any;
   chart_incumplimiento_general: any;
-  chart_incumplimiento_detallado: any;
+  chart_inventario_detallado: any;
   chart_frecuencias_incumplimiento_detallado: any;
 
   constructor(private _mongodb: MongodbService, private fb: FormBuilder) {
@@ -279,15 +279,14 @@ export class InicioComponent implements OnInit {
       }
     });
     //Iniciamos cargando la gráfica de porcentajes de incumplimiento detallado
-    this.chart_incumplimiento_detallado = new Chart('chart_incumplimiento_detallado', {
+    this.chart_inventario_detallado = new Chart('chart_inventario_detallado', {
       type: 'line',
       data: this.incumplimientoChartJsonDataDetallado,
       options: {
         responsive: true,
         scales: {
           y: {
-            beginAtZero: true,
-            max: 100
+            beginAtZero: true
           }
         },
         plugins: {
@@ -296,7 +295,7 @@ export class InicioComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Porcentaje de incumplimientos'
+            text: 'Inventario'
           }
         }
       }
@@ -544,12 +543,12 @@ export class InicioComponent implements OnInit {
   //Función para cargar los datos de la gráfica de incumplimientos detallado
   async generateGraphIncumplimientosDetallado() {
     //Consultamos la data para la gráfica de incumplimientos detallado
-    var data_incumplimientos_detallado = await this._mongodb.getInfoGraphIncumplimientosDetallado(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
+    var data_incumplimientos_detallado = await this._mongodb.getNumCabezasPorTipoCorral(this.detailed_info_form.value.tipo_de_corral, this.detailed_info_form.value.nombre_de_corral, this.detailed_info_form.value.year);
     this.incumplimientoChartJsonDataDetallado.datasets[0].data = data_incumplimientos_detallado;
     //Actualizamos el gráfico
     this.isLoadingGraphdata = false;
-    this.incumplimientoChartJsonDataDetallado.datasets[0].label = `${this.detailed_info_form.value.tipo_de_corral} (%)`;
-    this.chart_incumplimiento_detallado.update();
+    this.incumplimientoChartJsonDataDetallado.datasets[0].label = `${this.detailed_info_form.value.tipo_de_corral}`;
+    this.chart_inventario_detallado.update();
   }
 
   //Función para limpiarla gráfica de calificación detallada
@@ -562,7 +561,7 @@ export class InicioComponent implements OnInit {
   clearGraphIncumplimientosDetallado() {
     this.incumplimientoChartJsonDataDetallado.datasets[0].label = '- (%)';
     this.incumplimientoChartJsonDataDetallado.datasets[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.chart_incumplimiento_detallado.update();
+    this.chart_inventario_detallado.update();
   }
 
   //Función para cargar los datos de la gráfica de incumplimientos con más repeticiones (FALTA HACER)
