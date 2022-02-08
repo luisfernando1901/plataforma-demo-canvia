@@ -19,9 +19,9 @@ const routes: Routes = [
       { path: 'inicio', component: InicioComponent, canActivate:[AuthGuard] },
       { path: 'corrales/nuevoformulario', component: NuevoformularioComponent,canActivate:[AuthGuard] },
       { path: 'corrales/historialdereportes', component: HistorialdereportesComponent,canActivate:[AuthGuard] },
-      { path: 'listadecolaboradores', component: ListaDeColaboradoresComponent,canActivate:[AuthGuard] },
-      { path: 'configuracion', component: ConfiguracionComponent,canActivate:[AuthGuard] },
-      { path: 'directorio',component: DirectorioComponent,canActivate:[AuthGuard] }
+      { path: 'corrales/colaboradores', component: ListaDeColaboradoresComponent,canActivate:[AuthGuard] },
+      { path: 'corrales/configuracion', component: ConfiguracionComponent,canActivate:[AuthGuard] },
+      { path: 'corrales/directorio',component: DirectorioComponent,canActivate:[AuthGuard] }
     ]
   },
 ];

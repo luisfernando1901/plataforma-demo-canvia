@@ -10,19 +10,41 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item>
         <i nz-icon nzType="line-chart"></i>
-        <span><a [routerLink]="['inicio']">Dashboard</a></span>
+        <span><a [routerLink]="['inicio']">Data</a></span>
       </li>
       <li nz-submenu nzTitle="Corrales" nzIcon="profile">
         <ul>
           <li nz-menu-item>
-            <a [routerLink]="['corrales/nuevoformulario']">Nuevo formulario</a>
+            <a [routerLink]="['corrales/nuevoformulario']">Nuevos formularios</a>
           </li>
           <li nz-menu-item>
-            <a [routerLink]="['corrales/historialdereportes']">Historial de reportes</a>
+            <a [routerLink]="['corrales/historialdereportes']">Historial de visitas (PDF)</a>
+          </li>
+          <li nz-menu-item [nzDisabled]="true">
+            <a [routerLink]="['corrales/historialdereportes']">Notificaciones a gobierno</a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['corrales/directorio']">Directorio</a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['corrales/colaboradores']">Colaboradores</a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['corrales/configuracion']">Nuevo colaborador</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Barrido" nzIcon="lock" [nzDisabled]="true">
+      <li nz-submenu nzTitle="Casetas (PVI)" nzIcon="lock" [nzDisabled]="true">
+        <ul>
+          <li nz-menu-item>
+            <a>Nuevo formulario</a>
+          </li>
+          <li nz-menu-item>
+            <a>Historial lde reportes</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Laboratorio" nzIcon="lock" [nzDisabled]="true">
         <ul>
           <li nz-menu-item>
             <a>Nuevo formulario</a>
@@ -42,21 +64,12 @@
           </li>
         </ul>
       </li>
-      <li nz-menu-item [nzDisabled]="!admin">
-        <i nz-icon nzType="book"></i>
-        <span><a [routerLink]="['directorio']">Directorio</a></span>
-      </li>
-      <li nz-submenu nzTitle="Colaboradores" nzIcon="team">
-        <ul>
-          <li nz-menu-item>
-            <a [routerLink]="['listadecolaboradores']">Lista de colaboradores</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-menu-item [nzDisabled]="!admin">
+      <!--
+        <li nz-menu-item [nzDisabled]="!admin">
         <i nz-icon nzType="setting"></i>
         <span><a [routerLink]="['configuracion']">Configuración</a></span>
       </li>
+      -->
       <li nz-menu-item (click)="logout()">
         <i nz-icon nzType="logout"></i>
         <span>Salir</span>
